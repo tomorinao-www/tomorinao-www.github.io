@@ -3,26 +3,22 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: "友利奈绪勿忘我的博客"
-subtitle: "使用一个可爱而现代的 Hexo 主题"
-description: "欢迎访问本站，希望能给您带来美好的体验。"
-keywords:
-  - hexo
-  - tomorinao
-  - www
-  - kratos-rebirth
-author: tomorinao-www
+title: wwnao
+subtitle: "友利奈绪-勿忘我"
+description: "友利奈绪-勿忘我的个人网站"
+keywords: [hexo, blog]
+author: wwnao
 language: zh
 timezone: ""
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://tomorinao-www.github.io
-permalink: posts/:title/
-permalink_defaults:
+permalink: :year/:month/:day/:title/
+# permalink_defaults:
 pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+  trailing_index: false # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: false # Set to false to remove trailing '.html' from permalinks
 
 # Directory
 source_dir: source
@@ -32,7 +28,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-# skip_render:
+skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -41,26 +37,23 @@ titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
   field: site # Apply to the whole site
-  exclude: []
+  exclude: ""
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
-marked:
-  prependRoot: true
-  postAsset: true
+post_asset_folder: false
 relative_link: false
 future: true
 syntax_highlighter: highlight.js
 highlight:
   line_number: true
   auto_detect: false
-  tab_replace: ""
+  tab_replace: "    "
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   preprocess: true
   line_number: true
-  tab_replace: ""
+  tab_replace: "    "
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -72,7 +65,7 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: 无家可归的文章君T-T
+default_category: uncategorized
 category_map:
 tag_map:
 
@@ -103,26 +96,21 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: kratos-rebirth
-
-plugin:
-  - hexo-generator-feed
-  - hexo-generator-sitemap
-  - hexo-deployer-git
-feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-
-sitemap:
-  path: sitemap.xml
-  template: ./sitemap_template.xml
-  rel: false
+theme: arknights
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: git
-  repo: https://github.com/tomorinao-www/tomorinao-www.github.io
-  branch: main
-  message: site updated {{ now('YYYY-MM-DD HH:mm:ss') }}
+  - type: git
+    repo: https://github.com/tomorinao-www/tomorinao-www.github.io # https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+    branch: gh-pages
+    # message: ''
+
+  - type: sftp
+    host: 121.40.221.30 # 阿里云
+    port: 22
+    user: root
+    privateKey: C:\Users\tomorinao\.ssh\aliyun99.pem
+    # passphrase: [passphrase]
+    remotePath: /var/www/html/hexo
+    # agent: [path/to/agent/socket]

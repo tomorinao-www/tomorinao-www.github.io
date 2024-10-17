@@ -42,8 +42,8 @@ aside:
 # FontAwesome 格式可用图标参考：https://fontawesome.com/icons
 social:
   GitHub: https://github.com/tomorinao-www || fab fa-github
+  BiliBili: https://space.bilibili.com/186677485 || fa-brands fa-bilibili
   # E-Mail: mailto:yourname@gmail.com || fa fa-envelope
-  # BiliBili: https://space.bilibili.com/0000000 || fa-brands fa-bilibili
   # Weibo: https://weibo.com/yourname || fab fa-weibo
   # Zhihu: https://www.zhihu.com/people/yourname || fab fa-zhihu
 
@@ -100,8 +100,8 @@ valine:
   app_id: # APP ID
   app_key: # APP KEY
   server_url: # APP DOMAIN（LeanCloud 国际版）
-  avatar: 'retro' # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
-  avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/' # 自定义 avatar cdn
+  avatar: "retro" # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+  avatar_cdn: "https://dn-qiniu-avatar.qbox.me/avatar/" # 自定义 avatar cdn
 
 # gitalk
 # 详见 https://github.com/gitalk/gitalk

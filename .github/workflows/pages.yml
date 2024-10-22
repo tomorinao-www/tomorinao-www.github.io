@@ -3,7 +3,7 @@ name: Pages
 on:
   push:
     branches:
-      - dev # dev branch
+      - main # src branch
 
 jobs:
   build:
@@ -14,12 +14,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           # If your repository depends on submodule, please see: https://github.com/actions/checkout
           submodules: recursive
-      - name: Use Node.js 18
+      - name: Use Node.js v20.18.0
         uses: actions/setup-node@v4
         with:
           # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
           # Ref: https://github.com/actions/setup-node#supported-version-syntax
-          node-version: "18"
+          node-version: "20.18.0"
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
@@ -27,9 +27,9 @@ jobs:
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
             ${{ runner.OS }}-npm-cache
-      - name: Install Dependencies
+      - name: npm install
         run: npm install
-      - name: Build
+      - name: npm run build
         run: npm run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -12,5 +12,5 @@ deploy:
     user: root
     privateKey: C:\Users\tomorinao\.ssh\aliyun99.pem
     # passphrase: [passphrase]
-    remotePath: /var/www/html/hexo
+    remotePath: /var/www/html
     # agent: [path/to/agent/socket]

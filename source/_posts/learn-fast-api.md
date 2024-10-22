@@ -1,6 +1,6 @@
 ---
-title: sora-ni-kaeru-interpret
-date: 2023-5-6 23:43:42
+title: 学习FastAPI
+date: 2023-10-23 11:43:42
 categories: 学习
 tags:
   - 学习

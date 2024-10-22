@@ -1,0 +1,16 @@
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  - type: git
+    repo: https://github.com/tomorinao-www/tomorinao-www.github.io # https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+    branch: gh-pages
+    message: "update hexo site"
+
+  - type: sftp
+    host: 121.40.221.30 # 阿里云
+    port: 22
+    user: root
+    privateKey: C:\Users\tomorinao\.ssh\aliyun99.pem
+    # passphrase: [passphrase]
+    remotePath: /var/www/html/hexo
+    # agent: [path/to/agent/socket]

@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ""
-description: ""
+title: wwnao
+subtitle: "tomorinao-www"
+description: "友利奈绪-勿忘我的博客"
 keywords:
-author: John Doe
+author: wwnao
 language: en
 timezone: ""
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://blog.wwnao.xyz
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:

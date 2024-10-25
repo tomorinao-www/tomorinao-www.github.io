@@ -102,3 +102,4 @@ theme: arknights
 deploy:
   - type: git
     repo: https://github.com/tomorinao-www/tomorinao-www.github.io
+    branch: gh-pages

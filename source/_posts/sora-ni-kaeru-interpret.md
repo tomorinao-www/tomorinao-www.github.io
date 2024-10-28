@@ -5,7 +5,6 @@ categories: 微电波
 tags:
   - 微电波
   - 微小说
-sticky: 1
 #cover:
 comments: true
 toc: true

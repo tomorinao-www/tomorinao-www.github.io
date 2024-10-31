@@ -30,6 +30,8 @@ _✨ 友利奈绪-勿忘我的个人网站 ✨_
 | ------------------------------- | ----------------------------- |
 | https://tomorinao-www.github.io | github pages action           |
 | https://blog.wwnao.xyz          | CNAME tomorinao-www.github.io |
+| http://wwnao.xyz                | Dynadot + Racknerd            |
+| http://wwnao.icu                | ali cloud                     |
 
 ## 如何部署
 

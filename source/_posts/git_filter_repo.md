@@ -1,12 +1,10 @@
 ---
-title: red-light-stop
+title: 密码文件不小心提交了 git？git filter-repo 快速解决！
 date: 2024-10-28 18:43:42
-categories: 微电波
+categories: git
 tags:
-  - 微电波
-  - 微小说
-# sticky: 1
-#cover:
+  - git
+  - 踩坑
 comments: true
 toc: true
 donate: true
@@ -19,7 +17,7 @@ share: true
 
 当使用 git filter-repo 时，它会检查当前仓库的状态，防止在非干净的工作树上进行破坏性的历史重写。为了顺利进行，你可以按照以下步骤操作：
 
-解决方法
+## 解决方法
 
 创建一个新的克隆：
 
@@ -55,7 +53,7 @@ git filter-repo --invert-paths --path poetry.lock
 git filter-repo --invert-paths --path poetry.lock --force
 ```
 
-注意事项
+### 注意事项
 
 - 备份：无论你选择哪种方法，确保在操作之前备份你的仓库，以防任何意外情况。
 - 审慎操作：使用 --force 选项会改变历史，谨慎操作并确保你理解后果。

@@ -241,3 +241,5 @@ https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6
     探讨了科学和哲学的关系，强调了实用主义的核心思想。
 11. 《逻辑哲学论》（"Tractatus Logico-Philosophicus"） 维特根斯坦（Ludwig Wittgenstein）
     提出了语言、世界和思维之间的关系，探讨了逻辑和语言的本质。
+12. 《饕餮之宴》（Symposium）
+    柏拉图式智性恋（Platonic Love 或 Platonic Friendship）

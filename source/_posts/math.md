@@ -1,10 +1,11 @@
 ---
 title: 数学的各领域
-date: 2024-10-30 23:58:33
+date: 2024-10-30 23:07:21
 categories: 数学
-tags: 数学
-  笔记
-  百科
+tags:
+  - 数学
+  - 笔记
+  - 百科
 comments: true
 toc: true
 donate: true

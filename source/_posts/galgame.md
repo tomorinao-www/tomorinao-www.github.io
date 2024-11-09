@@ -1,5 +1,5 @@
 ---
-title: galgame
+title: galgame个人向游玩评分
 date: 2024-11-10 00:43:43
 categories: git
 tags:
@@ -10,6 +10,8 @@ toc: true
 donate: true
 share: true
 ---
+
+# title: galgame 个人向游玩评分
 
 | 序号 | 名称                                      | 评分 | 主类 | 备注 |
 | ---- | ----------------------------------------- | ---- | ---- | ---- |

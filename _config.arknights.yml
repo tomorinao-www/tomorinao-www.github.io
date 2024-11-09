@@ -31,7 +31,7 @@ aside:
   logo: https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png #图片链接，建议 1:1 比例
   dr: / # 侧边栏 Dr. 链接
   icp: # ICP 备案号，与版权声明相同，但会链接到 https://beian.miit.gov.cn/
-  copyright: # 版权声明、备案号等，可自定义键值，不想显示则留空
+  copyright:# 版权声明、备案号等，可自定义键值，不想显示则留空
     # 萌:
     #   萌ICP备XXXXXXXX号: https://icp.gov.moe/?keyword=XXXXXXXX
     # copyright:
@@ -101,8 +101,8 @@ valine:
   app_id: # APP ID
   app_key: # APP KEY
   server_url: # APP DOMAIN（LeanCloud 国际版）
-  avatar: 'retro' # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
-  avatar_cdn: 'https://dn-qiniu-avatar.qbox.me/avatar/' # 自定义 avatar cdn
+  avatar: "retro" # (''/mp/identicon/monsterid/wavatar/robohash/retro/hide)
+  avatar_cdn: "https://dn-qiniu-avatar.qbox.me/avatar/" # 自定义 avatar cdn
 
 # gitalk
 # 详见 https://github.com/gitalk/gitalk

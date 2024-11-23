@@ -1,7 +1,10 @@
 ---
 title: hello-arknights
 date: 2024-10-17 17:18:20
+categories: 文档
 tags:
+  - hexo
+  - theme
 sticky: 1
 #cover:
 comments: true

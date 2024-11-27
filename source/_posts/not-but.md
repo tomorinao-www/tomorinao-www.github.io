@@ -23,6 +23,7 @@ not implementation, but interface.
 not instance, but class.
 not variable, but struct.
 not semblance, but manifestation.
+不是表象，而是表现
 semblance
 representation
 performance

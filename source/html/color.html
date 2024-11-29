@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gradient Border Input with Box Shadow</title>
+    <style>
+      .div {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+      .gradient-input {
+        display: block;
+        width: 90%;
+        height: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        outline: none;
+        background-color: white;
+        background-image: linear-gradient(
+          to right,
+          #07d,
+          aqua
+        ); /* 输入框内部渐变色 */
+        background-clip: padding-box; /* 使渐变背景只应用于输入框内容部分 */
+        transition: box-shadow 0.3s ease, background-image 0.3s ease; /* 过渡效果 */
+      }
+
+      /* 使用 box-shadow 来实现渐变边框 */
+      .gradient-input:focus {
+        /*box-shadow: 0 0 8px 2px rgba(255, 0, 119, 0.8),
+          0 0 15px 3px rgba(255, 126, 95, 0.8);*/
+        box-shadow: 0 0 8px 2px rgba(255, 126, 95, 0.8),
+          0 0 15px 3px rgba(255, 0, 119, 0.8);
+        background-image: linear-gradient(
+          to right,
+          #0ff,
+          #22f
+        ); /* 聚焦时，改变输入框背景渐变色 */
+      }
+      .gradient-input::placeholder {
+        opacity: 0.8; /* 默认为 0.5 */
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #00bcd4"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #eb78ff"
+        style="background-image: linear-gradient(to right, #eb78ff, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #b96ff5"
+        style="background-image: linear-gradient(to right, #b96ff5, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #577af4"
+        style="background-image: linear-gradient(to right, #577af4, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #fb608e"
+        style="background-image: linear-gradient(to right, #fb608e, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #eb78ff"
+        style="background-image: linear-gradient(to right, #eb78ff, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #b96ff5"
+        style="background-image: linear-gradient(to right, #b96ff5, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #577af4"
+        style="background-image: linear-gradient(to right, #577af4, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #fb608e"
+        style="background-image: linear-gradient(to right, #fb608e, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #eb78ff"
+        style="background-image: linear-gradient(to right, #eb78ff, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #b96ff5"
+        style="background-image: linear-gradient(to right, #b96ff5, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #577af4"
+        style="background-image: linear-gradient(to right, #577af4, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #fb608e"
+        style="background-image: linear-gradient(to right, #fb608e, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f07"
+        style="background-image: linear-gradient(to right, #f07, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f6b"
+        style="background-image: linear-gradient(to right, #f6b, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f7f"
+        style="background-image: linear-gradient(to right, #f7f, aqua)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f07"
+        style="background-image: linear-gradient(to right, #f07, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f6b"
+        style="background-image: linear-gradient(to right, #f6b, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f7f"
+        style="background-image: linear-gradient(to right, #f7f, #000)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f07"
+        style="background-image: linear-gradient(to right, #f07, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f6b"
+        style="background-image: linear-gradient(to right, #f6b, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color:  #f7f"
+        style="background-image: linear-gradient(to right, #f7f, #fff)"
+      />
+      <input
+        type="text"
+        class="gradient-input"
+        placeholder="Enter text -> color: "
+      />
+    </div>
+  </body>
+</html>

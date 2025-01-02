@@ -179,6 +179,7 @@ share: true
   > }
   > ```
   >
-  > https://github.com/apache/rocketmq/blob/develop/store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java
+  > - https://github.com/apache/rocketmq/blob/develop/store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java
+  > - https://github.com/apache/rocketmq/pull/4903
   >
   > ![src-rocketmq](../imgs/why-it-stupid/src-rocketmq.png)

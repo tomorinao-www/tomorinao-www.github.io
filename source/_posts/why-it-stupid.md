@@ -10,7 +10,7 @@ tags:
   - 编程
   - 技术
   - 资本
-sticky: 1
+# sticky: 1
 comments: true
 toc: true
 donate: true
@@ -38,7 +38,7 @@ share: true
 > 没有反省的人生不值得活。
 > 人是寻求意义的动物。
 > 不知道自己的无知，乃是双倍的无知。
-> 智者说话，是因为有些话要说；愚者说话，则因为要说些话。
+> 智者说话，因为有话要说；愚者说话，因为要说些话。
 > -- 柏拉图
 
 > 整体大于部分之和。
@@ -60,6 +60,15 @@ share: true
 > 活着这个词在中国的语境里充满了力量，它的力量不是来自于呐喊，也不是来自于反抗,而是要忍受，去忍受现实中的苦难和平庸,去忍受生命中本不该有的不公与不义。在这样的世界里，有一种心眼坏了，叫知足常乐;有一种眼睛瞎了，叫岁月静好;有一种耳朵聋了，叫与世无争。中国是这三种人的天堂。 -- 余华
 >
 > > 万种不堪无所谓，苟活世间品百味。
+
+> 最忌讳：
+>
+> - 贪图享乐，又好吃懒做。
+> - 无财无能，又贪财好色。
+> - 眼高手低，又怨天尤人。
+> - 无勇无谋，又勤于谋策。
+>
+> 间歇性踌躇满志，持续性混吃等死
 
 > 简单问题复杂化，复杂问题虚无化，是大部分人解决问题的办法。
 
@@ -145,5 +154,31 @@ share: true
 
 ## 扩展延伸阅读
 
+- https://m.huxiu.com/article/3334240.html
+  > 对话 RWKV 作者[彭博]：单枪匹马挑战 Transformer 的神秘怪才
 - https://m.huxiu.com/article/3827317.html
-  > 软件行业有很多“潜规则”，行外人不知道，行内人不能说。因为说出来会被视为“行业叛徒”——比如我。
+  > 软件行业有很多“潜规则”，行外人不知道，行内人不能说。因为说出来会被视为“行业叛徒”——比如我
+- https://bbs.kanxue.com/thread-282784.htm
+  > （网吧传奇霸业的计算机安全攻防技术与利益）无硬盘、网络拦截、进\线程、（有/无）模块注入、文件、注册表、窗口拦截、驱动注入、浏览器抢占、登陆器封禁、替换软件渠道号、hook 与 unhook、拦截与反拦截、注入与反注入。
+- https://cloud.tencent.com/developer/article/2148368
+  > 没有二十年功力，写不出这一行“看似无用”的代码！
+  >
+  >     Thread.sleep(0);
+  >
+  > ```java
+  > // src: org.apache.rocketmq.store.logfile.DefaultMappedFile#warmMappedFile
+  >
+  > for (int i = 0, j = 0; i < this.fileSize; i += DefaultMappedFile.0S_PAGE_SIZE, j++) {
+  >     // ... 业务代码 ...
+  >     // prevent gc
+  >     if (j % 1000 == 0) {
+  >         try {
+  >             Thread.sleep(0);
+  >         } catch (InterruptedException e) {}
+  >     }
+  > }
+  > ```
+  >
+  > https://github.com/apache/rocketmq/blob/develop/store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java
+  >
+  > ![src-rocketmq](../imgs/why-it-stupid/src-rocketmq.png)

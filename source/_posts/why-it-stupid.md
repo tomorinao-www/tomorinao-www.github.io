@@ -181,5 +181,6 @@ share: true
   >
   > - https://github.com/apache/rocketmq/blob/develop/store/src/main/java/org/apache/rocketmq/store/logfile/DefaultMappedFile.java
   > - https://github.com/apache/rocketmq/pull/4903
+  > - https://github.com/apache/rocketmq/commit/613d483a18bddcea26783d1e80752360821afce9
   >
-  > ![src-rocketmq](../imgs/why-it-stupid/src-rocketmq.png)
+  > ![src-commit](../imgs/why-it-stupid/src-prevent-gc-commit.png)

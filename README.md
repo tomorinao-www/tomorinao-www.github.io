@@ -29,9 +29,9 @@ _✨ 友利奈绪-勿忘我的个人网站 ✨_
 | url                             | description                   |
 | ------------------------------- | ----------------------------- |
 | https://tomorinao-www.github.io | github pages action           |
-| https://blog.wwnao.xyz          | CNAME tomorinao-www.github.io |
-| http://wwnao.xyz                | Dynadot + Racknerd            |
-| http://wwnao.icu                | ali cloud                     |
+| https://ghpage.wwnao.xyz        | CNAME tomorinao-www.github.io |
+| http://blog.wwnao.xyz           | Dynadot + Racknerd            |
+| http://wwnao.icu                | alibaba cloud                 |
 
 ## 如何部署
 

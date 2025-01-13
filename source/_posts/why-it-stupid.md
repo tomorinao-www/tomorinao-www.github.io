@@ -301,3 +301,8 @@ IT 和 it
 - https://cloud.tencent.com/developer/article/1493036
   > 逐帧分析：YouTube 使用了什么独门技术？
   > （高性能、高可用、容错、缓存、懒加载、预渲染、http3/quic 协议、流媒体协议、压缩、内联、内嵌 svg、资源重用、编码格式）
+- https://blog.sina.com.cn/s/blog_4b0e23c90100b2qf.html
+  > 《我的程序人生路》
+  > -- 雷军
+  > 1996 年 5 月写于金山西点 BBS
+  > 【题记】 如果程序人生的话，这条路太漫长

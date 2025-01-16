@@ -1,9 +1,10 @@
 ---
 title: css - color - 调色板 - 水色 - 粉红色
-categories: 推荐
+categories: 前端
 tags:
-  - 书籍
-  - 推荐
+  - 前端
+  - css
+  - 颜色
 comments: true
 toc: true
 donate: true

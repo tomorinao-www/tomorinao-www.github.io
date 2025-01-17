@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CS149-并行计算-斯坦福大学-学习笔记 | wwnao</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>CS149-并行计算-斯坦福大学-学习笔记</h1></div><hr><div id="post-content"><h1 id="CS149-并行计算-斯坦福大学-学习笔记"><a href="#CS149-并行计算-斯坦福大学-学习笔记" class="headerlink" title="CS149-并行计算-斯坦福大学-学习笔记"></a>CS149-并行计算-斯坦福大学-学习笔记</h1><ul>
+<li>课程录播（中英字幕，部分有误，fall 23）：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1du17YfE5G">https://www.bilibili.com/video/BV1du17YfE5G</a></li>
+<li>课程官网（fall 24）：<a target="_blank" rel="noopener" href="https://gfxcourses.stanford.edu/cs149/fall24">https://gfxcourses.stanford.edu/cs149/fall24</a></li>
+<li>编程作业（fall24）：<ol>
+<li>在四核 CPU 上分析并行程序性能</li>
+<li>在多核 CPU 上调度任务图</li>
+<li>用 CUDA 实现一个简单的渲染器</li>
+<li>在 DNN 加速硬件上优化深度神经网络（DNN）性能。（实现和优化 AWS Trainium 架构的内核）</li>
+<li>使用 OpenMP 处理大规模图数据</li>
+<li>（fall23 原第三题）chat149: 小语言模型，用 C++ 实现基于 DNN 的 transformer 的注意力层（flash-attention）</li>
+</ol>
+</li>
+</ul>
+<h1 id="其一：Why-Parallelism-Why-Efficiency"><a href="#其一：Why-Parallelism-Why-Efficiency" class="headerlink" title="其一：Why Parallelism? Why Efficiency?"></a>其一：Why Parallelism? Why Efficiency?</h1><blockquote>
+<p>Fast !&#x3D; Efficient</p>
+<p>速度快，不等于效率高</p>
+</blockquote>
+<blockquote>
+<p>如果老板给了你 100 倍的算力设备，<br>你却仅仅将程序加快了 2 倍，<br>我想你就该被开除了。</p>
+<p>“是的，让他去重修 CS149。”</p>
+</blockquote>
+<h2 id="demo1：第一个并行程序"><a href="#demo1：第一个并行程序" class="headerlink" title="demo1：第一个并行程序"></a>demo1：第一个并行程序</h2><blockquote>
+<p>案例：</p>
+<ul>
+<li>1 人可以在 45 秒内算出 16 个数的总和。（demo1：第一个并行程序）</li>
+<li>但 2 人并不能在 23 秒内算出 16 个数字的总和，而是 40 秒。</li>
+<li>4 人计算 16 个数字之和的时间，优化到了 19 秒，而不是 12 秒。（demo2：扩展到 4 个“处理器”）</li>
+<li>100 多人不能在 2 分钟内数清楚人数总和。（demo3：大批量并行执行）</li>
+</ul>
+</blockquote>
+<p>这个案例告诉我们：<br>并行计算，关键不在于如何并行，如何计算（虽然这也很重要），关键在于数据传输和协同效率。</p>
+<p>因此，我们更多的是在学习：如何传输数据，排列数据，而不是写代码或布局硬件。</p>
+<h2 id="什么是计算机程序？-What-is-a-computer-program"><a href="#什么是计算机程序？-What-is-a-computer-program" class="headerlink" title="什么是计算机程序？ What is a computer program ?"></a>什么是计算机程序？ What is a computer program ?</h2><p>“程序（program）”不同于“代码（code）”。</p>
+<p>程序，与食谱一样，应当是可执行的一系列命题。</p>
+<p>计算机程序，则是“指令流”，或者叫“指令序列”。<br>必须是计算机认识的一系列 01 串。</p>
+<h2 id="处理器做了什么？-What-does-a-processor-do"><a href="#处理器做了什么？-What-does-a-processor-do" class="headerlink" title="处理器做了什么？ What does a processor do ?"></a>处理器做了什么？ What does a processor do ?</h2><p>一个简化的处理器有 3 个模块：</p>
+<ul>
+<li>Fetch &#x2F; Decode： 取指令、解析指令</li>
+<li>ALU：算数运算单元</li>
+<li>Execution Context：执行上下文</li>
+</ul>
+<h2 id="案例：a-x-x-y-y-z-z"><a href="#案例：a-x-x-y-y-z-z" class="headerlink" title="案例：a = x * x + y * y + z * z"></a>案例：<code>a = x * x + y * y + z * z</code></h2><p>这个简单的多项式运算会编译出 5 条指令<br>（假设使用 r1，r2，r3 寄存器，<br>假设不使用任何编译优化<br><a href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96chatgpt">编译优化（ChatGPT）</a><br>）：</p>
+<ol>
+<li>mul r1, r1, r1</li>
+<li>mul r2, r2, r2</li>
+<li>mul r3, r3, r3</li>
+<li>add r1, r1, r2 ; r1 &#x3D; r1 + r2</li>
+<li>add r1, r1, r3</li>
+</ol>
+<p>我们发现，指令 4 依赖于指令 1、2；指令 5 依赖于指令 3、4。<br>所以，等待是必须的，即使使用 5 个 cpu，效率也不会超过 1 条 mul 指令时间加上 2 条 add 指令时间。</p>
+<p>（这里还有寄存器最少使用原则，或最多使用原则，不做讨论）</p>
+<p>如何进一步提高性能？</p>
+<ul>
+<li>数学家：改进数学公式，减少乘法次数（耗时长的操作），增加加法次数（耗时短的操作），重新编写代码。</li>
+<li>硬件工程师：指令重排，指令随机化，指令流水线，分支预测，多级缓存，自动并行化，自动向量化加速</li>
+<li>软件工程师：编写高维度的，可并行化的程序。任务并行化，数据结构并行化，计算并行化，数据传输并行化，数据存储并行化。主动使用缓存（预存器）。</li>
+</ul>
+<blockquote>
+<p>小结</p>
+<ul>
+<li>软件：物尽其用（压榨硬件的一切性能）</li>
+<li>硬件：用尽其物（挑选更好的硬件去适配软件）</li>
+</ul>
+</blockquote>
+<h2 id="编译优化（ChatGPT）"><a href="#编译优化（ChatGPT）" class="headerlink" title="编译优化（ChatGPT）"></a>编译优化（ChatGPT）</h2><p>现代编译器通常会结合多种优化策略，来提高程序的执行效率。它们会根据不同的场景、硬件架构和程序的特征，选择不同的原则来优化寄存器的使用。以下是一些现代编译器普遍采用的优化原则和策略：</p>
+<h3 id="1-寄存器最多使用原则（Maximizing-Register-Usage）"><a href="#1-寄存器最多使用原则（Maximizing-Register-Usage）" class="headerlink" title="1. 寄存器最多使用原则（Maximizing Register Usage）"></a>1. <strong>寄存器最多使用原则（Maximizing Register Usage）</strong></h3><p>现代编译器在许多情况下倾向于使用尽可能多的寄存器，这样可以减少对内存的访问，因为寄存器的访问速度远快于内存。这个原则通常用于以下情况：</p>
+<ul>
+<li><strong>频繁访问的变量</strong>：如果某个变量在计算中被频繁使用，编译器会尽可能地将其保留在寄存器中，避免频繁的内存读写操作。</li>
+<li><strong>局部性原理</strong>：寄存器的使用能很好地利用数据的局部性。例如，如果某个数据在一段时间内频繁访问，它可以存储在寄存器中，而不需要每次从内存中读取。</li>
+</ul>
+<p><strong>举例</strong>：对于一个简单的多项式计算：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">a = x * x + y * y + z * z;<br></code></pre></td></tr></table></figure>
+
+<p>编译器可能会为每个中间结果（如 <code>x * x</code>、<code>y * y</code>、<code>z * z</code>）分配一个寄存器，并将结果存储在寄存器中，避免额外的内存操作。</p>
+<h3 id="2-寄存器分配和寄存器重命名"><a href="#2-寄存器分配和寄存器重命名" class="headerlink" title="2. 寄存器分配和寄存器重命名"></a>2. <strong>寄存器分配和寄存器重命名</strong></h3><ul>
+<li><strong>寄存器分配</strong>：编译器通过分析程序的数据流和生命周期来确定哪些变量应该保留在寄存器中。寄存器的分配不仅考虑变量的使用频率，还要避免寄存器冲突，尽可能地减少寄存器的交换和保存操作。</li>
+<li><strong>寄存器重命名</strong>：现代编译器会使用寄存器重命名技术来避免因寄存器依赖（如数据依赖）而产生的性能瓶颈。通过给同一个物理寄存器分配多个逻辑寄存器，编译器可以让多个指令并行执行，避免等待依赖关系完成。</li>
+</ul>
+<h3 id="3-局部变量优化"><a href="#3-局部变量优化" class="headerlink" title="3. 局部变量优化"></a>3. <strong>局部变量优化</strong></h3><p>现代编译器通常会通过 <strong>局部性分析</strong> 来优化寄存器的使用。局部变量是那些只在函数内部使用的变量，编译器会尽量将它们分配到寄存器中，而不是存储在栈上或堆上。特别是对于小型的、生命周期较短的局部变量，寄存器使用能显著提高性能。</p>
+<p><strong>举例</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;<br>    sum += arr[i];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译器可能会将 <code>sum</code> 和 <code>i</code> 变量都存储在寄存器中，以减少对内存的访问。</p>
+<h3 id="4-内联扩展（Inlining）"><a href="#4-内联扩展（Inlining）" class="headerlink" title="4. 内联扩展（Inlining）"></a>4. <strong>内联扩展（Inlining）</strong></h3><p>编译器会尝试对一些小的、频繁调用的函数进行内联扩展（inline），将函数调用替换成函数的实现体。这可以消除函数调用的开销，并减少对寄存器和内存的使用，特别是在递归或频繁调用的情况下。</p>
+<h3 id="5-循环优化（Loop-Optimization）"><a href="#5-循环优化（Loop-Optimization）" class="headerlink" title="5. 循环优化（Loop Optimization）"></a>5. <strong>循环优化（Loop Optimization）</strong></h3><p>编译器对循环结构进行优化，以提高寄存器的利用率和减少内存访问。例如，编译器可能会将循环展开、循环重排或循环分割，以便使计算更密集，从而减少内存的读取次数。</p>
+<p><strong>举例</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;<br>    a[i] = b[i] + c[i];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译器可能将其优化为多个操作并行执行，或者将内存访问合并，以更高效地利用寄存器。</p>
+<h3 id="6-寄存器压力和溢出（Register-Pressure-and-Spill）"><a href="#6-寄存器压力和溢出（Register-Pressure-and-Spill）" class="headerlink" title="6. 寄存器压力和溢出（Register Pressure and Spill）"></a>6. <strong>寄存器压力和溢出（Register Pressure and Spill）</strong></h3><p>现代编译器会根据寄存器的使用情况动态调整优化策略。如果寄存器使用过多，导致“寄存器压力”过大，编译器就可能将某些值溢出（spill）到栈上，特别是在寄存器资源紧张的情况下。溢出操作会影响性能，因为它需要额外的内存读写操作。</p>
+<h3 id="7-自动向量化"><a href="#7-自动向量化" class="headerlink" title="7. 自动向量化"></a>7. <strong>自动向量化</strong></h3><p>现代编译器（如 GCC、Clang、Intel 的 ICC 编译器等）支持自动向量化。通过向量化，编译器可以将标量操作转化为 SIMD（单指令多数据流）操作，这样能够将多个计算任务并行地放到同一个寄存器组中，从而大幅提高计算效率。</p>
+<p><strong>举例</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;<br>    a[i] = b[i] + c[i];<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果编译器支持向量化，它可能会将这段代码转换成可以同时加法多个元素的 SIMD 指令，使得多个数组元素能够同时在寄存器中处理，从而提高性能。</p>
+<h3 id="8-多级缓存和数据局部性"><a href="#8-多级缓存和数据局部性" class="headerlink" title="8. 多级缓存和数据局部性"></a>8. <strong>多级缓存和数据局部性</strong></h3><p>现代编译器也会考虑缓存的优化，尽量减少从内存中读取的数据量，利用 CPU 的多级缓存（L1、L2、L3 缓存）。通过优化程序的数据访问模式和寄存器分配，编译器能够使数据尽可能保持在较快的缓存中，而不需要频繁访问较慢的主内存。</p>
+<h3 id="9-并行计算和多核优化"><a href="#9-并行计算和多核优化" class="headerlink" title="9. 并行计算和多核优化"></a>9. <strong>并行计算和多核优化</strong></h3><p>在多核处理器上运行时，编译器可能会自动将程序分割成多个并行线程，使用多核的并行性来加速计算。寄存器的分配和使用会考虑到多线程并发执行的情况，确保每个线程能够高效地利用本地寄存器。</p>
+<h3 id="10-指令级并行性（ILP）优化"><a href="#10-指令级并行性（ILP）优化" class="headerlink" title="10. 指令级并行性（ILP）优化"></a>10. <strong>指令级并行性（ILP）优化</strong></h3><p>编译器会使用一些高级技术（如指令重排、延迟槽填充、分支预测等）来优化指令级并行性。这些优化措施通过重新排列指令，减少指令间的依赖关系，从而更好地利用寄存器和其他硬件资源，提高程序的执行效率。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>现代编译器会综合考虑性能、内存带宽、寄存器数量、计算依赖关系等多种因素，使用寄存器最多使用原则来最大化寄存器的利用率，但也会根据具体的硬件架构和程序的特性做适当的调整。最终目标是减少内存访问、提高并行性，并通过智能的寄存器分配和优化技术提升整体性能。</p>
+<h1 id="其二：A-Modern-Muti-Core-Processor"><a href="#其二：A-Modern-Muti-Core-Processor" class="headerlink" title="其二：A Modern Muti-Core Processor"></a>其二：A Modern Muti-Core Processor</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">sinx</span><span class="hljs-params">(<span class="hljs-type">int</span> N, <span class="hljs-type">int</span> terms, <span class="hljs-type">float</span>* x，<span class="hljs-type">float</span>* y)</span><br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;N; i++)<br>    &#123;<br>        <span class="hljs-type">float</span> value = x[i];<br>        <span class="hljs-type">float</span> numer = x[i]*x[i]*x[i];<br>        <span class="hljs-type">int</span> denom = <span class="hljs-number">6</span>; <span class="hljs-comment">// 3!</span><br>        <span class="hljs-type">int</span> sign = <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>; j&lt;=terms; j++)<br>        &#123;<br>            value += sign * numer / denom;<br>            numer *= x[i]*x[i];<br>            denom *=(<span class="hljs-number">2</span>*j+<span class="hljs-number">2</span>)*(<span class="hljs-number">2</span>*j+<span class="hljs-number">3</span>);<br>            sign *= <span class="hljs-number">-1</span>;<br>        &#125;<br>      y[i] = value;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这段程序计算 <code>y[i] = sin(x[i])</code>，<br>N 为数组长度，<br>terms 则是精度（泰勒展开项个数）。</p>
+<p>暂且不谈这段程序在优化方面，<br>利用了之前的计算结果来计算 x 的幂次与 j 的阶乘，<br>这种做法的精妙之处，<br>以及使用 for 循环和局部变量，而不是函数，<br>带来的更高程度的局部性，<br>也不考虑运算溢出问题。<br>我们只关心，如何并行化计算。</p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2025/01/16/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%95%99%E5%85%BB%E7%9A%84%E8%BF%B7%E6%80%9D%E3%80%8B/">读书笔记-《教养的迷思》 Prev →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">wwnao</a></h1><div id="description"><p>友利奈绪-勿忘我的博客</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/tomorinao-www"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/186677485"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CS149-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97-%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">CS149-并行计算-斯坦福大学-学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%B8%80%EF%BC%9AWhy-Parallelism-Why-Efficiency"><span class="toc-number">2.</span> <span class="toc-text">其一：Why Parallelism? Why Efficiency?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#demo1%EF%BC%9A%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B9%B6%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">demo1：第一个并行程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%EF%BC%9F-What-is-a-computer-program"><span class="toc-number">2.2.</span> <span class="toc-text">什么是计算机程序？ What is a computer program ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F-What-does-a-processor-do"><span class="toc-number">2.3.</span> <span class="toc-text">处理器做了什么？ What does a processor do ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9Aa-x-x-y-y-z-z"><span class="toc-number">2.4.</span> <span class="toc-text">案例：a &#x3D; x * x + y * y + z * z</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%EF%BC%88ChatGPT%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">编译优化（ChatGPT）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%84%E5%AD%98%E5%99%A8%E6%9C%80%E5%A4%9A%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99%EF%BC%88Maximizing-Register-Usage%EF%BC%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">1. 寄存器最多使用原则（Maximizing Register Usage）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D%E5%92%8C%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.2.</span> <span class="toc-text">2. 寄存器分配和寄存器重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.3.</span> <span class="toc-text">3. 局部变量优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%86%85%E8%81%94%E6%89%A9%E5%B1%95%EF%BC%88Inlining%EF%BC%89"><span class="toc-number">2.5.4.</span> <span class="toc-text">4. 内联扩展（Inlining）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96%EF%BC%88Loop-Optimization%EF%BC%89"><span class="toc-number">2.5.5.</span> <span class="toc-text">5. 循环优化（Loop Optimization）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AF%84%E5%AD%98%E5%99%A8%E5%8E%8B%E5%8A%9B%E5%92%8C%E6%BA%A2%E5%87%BA%EF%BC%88Register-Pressure-and-Spill%EF%BC%89"><span class="toc-number">2.5.6.</span> <span class="toc-text">6. 寄存器压力和溢出（Register Pressure and Spill）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%87%AA%E5%8A%A8%E5%90%91%E9%87%8F%E5%8C%96"><span class="toc-number">2.5.7.</span> <span class="toc-text">7. 自动向量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">2.5.8.</span> <span class="toc-text">8. 多级缓存和数据局部性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%9A%E6%A0%B8%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.9.</span> <span class="toc-text">9. 并行计算和多核优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E6%80%A7%EF%BC%88ILP%EF%BC%89%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.10.</span> <span class="toc-text">10. 指令级并行性（ILP）优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.11.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BA%8C%EF%BC%9AA-Modern-Muti-Core-Processor"><span class="toc-number">3.</span> <span class="toc-text">其二：A Modern Muti-Core Processor</span></a></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

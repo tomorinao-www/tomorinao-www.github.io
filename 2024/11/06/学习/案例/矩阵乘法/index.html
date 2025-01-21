@@ -63,7 +63,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <p>注意看，这个男人叫矩阵乘法定义式</p>
 </blockquote>
 <blockquote>
-<p class='item-img' data-src='/source/imgs/matrix-multiplication/0.png'><img src="/source/imgs/matrix-multiplication/0.png" alt="0.png"></p>
+<p class='item-img' data-src='/imgs/matrix-multiplication/0.png'><img src="/imgs/matrix-multiplication/0.png" alt="0.png"></p>
 </blockquote>
 <blockquote>
 <p>C[m, n] +&#x3D; A[m, k] * B[k, n]</p>
@@ -78,7 +78,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):<br>    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(K):<br>            C[m, n] += A[m, k] * B[k, n]<br></code></pre></td></tr></table></figure>
 
 <p>我们画图思考一下，数据的访问顺序</p>
-<p class='item-img' data-src='/source/imgs/matrix-multiplication/1.png'><img src="/source/imgs/matrix-multiplication/1.png" alt="1.png"><br>这是普通人能想到的，最简单算法。</p>
+<p class='item-img' data-src='/imgs/matrix-multiplication/1.png'><img src="/imgs/matrix-multiplication/1.png" alt="1.png"><br>这是普通人能想到的，最简单算法。</p>
 <p>A 的局部性原理利用的很好，<br>所以很快。</p>
 <p>但是 B 的局部性原理排第二，<br>B 是按照列来访问的。<br>这很慢。跨越了局部性 cache</p>
 <p>所以 B 也应该按照行访问。但是公式是死的。</p>
@@ -91,7 +91,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(M):<br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(K):<br>        <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(N):<br>            C[m, n] += A[m, k] * B[k, n]<br></code></pre></td></tr></table></figure>
 
 <p>那么这是不是最快的呢？</p>
-<p class='item-img' data-src='/source/imgs/matrix-multiplication/2.png'><img src="/source/imgs/matrix-multiplication/2.png" alt="2.png"></p>
+<p class='item-img' data-src='/imgs/matrix-multiplication/2.png'><img src="/imgs/matrix-multiplication/2.png" alt="2.png"></p>
 <p>这样我们实现了 BC 的按行访问</p>
 <p>那么 A 呢？</p>
 <p>由于 m 仍然在 k 外层：<br><code>M -&gt; K -&gt; N</code><br>所以 <strong>A 也是按行访问的</strong> 。</p>

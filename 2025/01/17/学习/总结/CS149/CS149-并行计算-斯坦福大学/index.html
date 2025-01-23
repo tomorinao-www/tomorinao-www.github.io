@@ -60,6 +60,7 @@ lightGallery(document.getElementById('post-bg'), {
  }
 });
 document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>CS149-并行计算-斯坦福大学-学习笔记</h1></div><hr><div id="post-content"><h1 id="CS149-并行计算-斯坦福大学-学习笔记"><a href="#CS149-并行计算-斯坦福大学-学习笔记" class="headerlink" title="CS149-并行计算-斯坦福大学-学习笔记"></a>CS149-并行计算-斯坦福大学-学习笔记</h1><ul>
+<li>讲师: Kayvon Fatahalian, Kunle Olukotun</li>
 <li>课程录播（中英字幕，部分有误，fall 23）：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1du17YfE5G">https://www.bilibili.com/video/BV1du17YfE5G</a></li>
 <li>课程官网（fall 24）：<a target="_blank" rel="noopener" href="https://gfxcourses.stanford.edu/cs149/fall24">https://gfxcourses.stanford.edu/cs149/fall24</a></li>
 <li>编程作业（fall24）：<ol>
@@ -76,6 +77,9 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <p><strong>（fall24）课程导言</strong>：<br>从智能手机到多核 CPU 和 GPU，再到世界上最大的超级计算机和网站，并行处理在现代计算中无处不在。本课程的目标是深入了解设计现代并行计算系统所涉及的基本原理和工程权衡，并教授有效利用这些机器所需的并行编程技术。因为编写好的并行程序需要了解关键的机器性能特征，所以本课程将涵盖并行硬件和软件设计。</p>
 </blockquote>
 <h1 id="其一：Why-Parallelism-Why-Efficiency"><a href="#其一：Why-Parallelism-Why-Efficiency" class="headerlink" title="其一：Why Parallelism? Why Efficiency?"></a>其一：Why Parallelism? Why Efficiency?</h1><blockquote>
+<p>第一章：为什么要并行？为什么要高效率？</p>
+</blockquote>
+<blockquote>
 <p>Fast !&#x3D; Efficient</p>
 <p>速度快，不等于效率高</p>
 </blockquote>
@@ -164,7 +168,10 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <h3 id="9-并行计算和多核优化"><a href="#9-并行计算和多核优化" class="headerlink" title="9. 并行计算和多核优化"></a>9. <strong>并行计算和多核优化</strong></h3><p>在多核处理器上运行时，编译器可能会自动将程序分割成多个并行线程，使用多核的并行性来加速计算。寄存器的分配和使用会考虑到多线程并发执行的情况，确保每个线程能够高效地利用本地寄存器。</p>
 <h3 id="10-指令级并行性（ILP）优化"><a href="#10-指令级并行性（ILP）优化" class="headerlink" title="10. 指令级并行性（ILP）优化"></a>10. <strong>指令级并行性（ILP）优化</strong></h3><p>编译器会使用一些高级技术（如指令重排、延迟槽填充、分支预测等）来优化指令级并行性。这些优化措施通过重新排列指令，减少指令间的依赖关系，从而更好地利用寄存器和其他硬件资源，提高程序的执行效率。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>现代编译器会综合考虑性能、内存带宽、寄存器数量、计算依赖关系等多种因素，使用寄存器最多使用原则来最大化寄存器的利用率，但也会根据具体的硬件架构和程序的特性做适当的调整。最终目标是减少内存访问、提高并行性，并通过智能的寄存器分配和优化技术提升整体性能。</p>
-<h1 id="其二：A-Modern-Muti-Core-Processor"><a href="#其二：A-Modern-Muti-Core-Processor" class="headerlink" title="其二：A Modern Muti-Core Processor"></a>其二：A Modern Muti-Core Processor</h1><h2 id="案例：计算-y-i-sin-x-i"><a href="#案例：计算-y-i-sin-x-i" class="headerlink" title="案例：计算 y[i]=sin(x[i])"></a>案例：计算 <code>y[i]=sin(x[i])</code></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">sinx</span><span class="hljs-params">(<span class="hljs-type">int</span> N, <span class="hljs-type">int</span> terms, <span class="hljs-type">float</span>* x, <span class="hljs-type">float</span>* y)</span><br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;N; i++)<br>    &#123;<br>        <span class="hljs-type">float</span> value = x[i];<br>        <span class="hljs-type">float</span> numer = x[i] * x[i] * x[i];<br>        <span class="hljs-type">int</span> denom = <span class="hljs-number">6</span>; <span class="hljs-comment">// 3!</span><br>        <span class="hljs-type">int</span> sign = <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>; j&lt;=terms; j++)<br>        &#123;<br>            value += sign * numer / denom;<br>            numer *= x[i] * x[i];<br>            denom *= (<span class="hljs-number">2</span>*j + <span class="hljs-number">2</span>) * (<span class="hljs-number">2</span>*j + <span class="hljs-number">3</span>);<br>            sign *= <span class="hljs-number">-1</span>;<br>        &#125;<br>      y[i] = value;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="其二：A-Modern-Muti-Core-Processor"><a href="#其二：A-Modern-Muti-Core-Processor" class="headerlink" title="其二：A Modern Muti-Core Processor"></a>其二：A Modern Muti-Core Processor</h1><blockquote>
+<p>第二章：现代多核处理器</p>
+</blockquote>
+<h2 id="案例：计算-y-i-sin-x-i"><a href="#案例：计算-y-i-sin-x-i" class="headerlink" title="案例：计算 y[i]=sin(x[i])"></a>案例：计算 <code>y[i]=sin(x[i])</code></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">sinx</span><span class="hljs-params">(<span class="hljs-type">int</span> N, <span class="hljs-type">int</span> terms, <span class="hljs-type">float</span>* x, <span class="hljs-type">float</span>* y)</span><br>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;N; i++)<br>    &#123;<br>        <span class="hljs-type">float</span> value = x[i];<br>        <span class="hljs-type">float</span> numer = x[i] * x[i] * x[i];<br>        <span class="hljs-type">int</span> denom = <span class="hljs-number">6</span>; <span class="hljs-comment">// 3!</span><br>        <span class="hljs-type">int</span> sign = <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>; j&lt;=terms; j++)<br>        &#123;<br>            value += sign * numer / denom;<br>            numer *= x[i] * x[i];<br>            denom *= (<span class="hljs-number">2</span>*j + <span class="hljs-number">2</span>) * (<span class="hljs-number">2</span>*j + <span class="hljs-number">3</span>);<br>            sign *= <span class="hljs-number">-1</span>;<br>        &#125;<br>      y[i] = value;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>这段程序计算 <code>y[i] = sin(x[i])</code>，<br>N 为数组长度，<br>terms 则是精度（泰勒展开项个数）。</p>
 <p>暂且不谈这段程序在优化方面，<br>利用了之前的计算结果来计算 x 的幂次与 j 的阶乘，<br>这种做法的精妙之处，<br>以及使用 for 循环和局部变量，而不是函数，<br>带来的更高程度的局部性，<br>也不考虑运算溢出问题。<br>我们只关心，如何并行化计算。</p>
@@ -181,7 +188,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <p>为了避免在大多数情况下进入低性能运算分支，<br>我们应当仔细考察运算过程，<br>写出“高并行化”的“高性能”代码。</p>
 <h2 id="现代多核处理器"><a href="#现代多核处理器" class="headerlink" title="现代多核处理器"></a>现代多核处理器</h2><h3 id="3-种不同形式的并行执行"><a href="#3-种不同形式的并行执行" class="headerlink" title="3 种不同形式的并行执行"></a>3 种不同形式的并行执行</h3><ul>
 <li><strong>超标量（Superscalar）</strong>：利用指令流中的 ILP。并行处理同一指令流中的不同指令（只用一个核心（core））。<ul>
-<li>在执行过程中，硬件自动发现并行性。</li>
+<li>在执行过程中，硬件自动发现并行性。（发现一小段程序中有几条指令可以并行执行）</li>
 </ul>
 </li>
 <li><strong>单指令流多数据流（SIMD）（Single Instruction Multiple Data）</strong>：一条指令控制多个 ALU（只用一个核心）。<ul>
@@ -258,7 +265,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <h4 id="回想：数据预取"><a href="#回想：数据预取" class="headerlink" title="回想：数据预取"></a>回想：数据预取</h4><p>当访问大量连续性可预测的数据，<br>比如访问一大块数组时，<br>可以很容易进行预测，<br>并进行数据预取（data prefetch）</p>
 <hr>
 <p>但是，如果近期没有访问过数据，<br>也很难预测程序下一步要干嘛，怎么办？</p>
-<h3 id="第-3-种方法：用多线程消除停顿"><a href="#第-3-种方法：用多线程消除停顿" class="headerlink" title="第 3 种方法：用多线程消除停顿"></a>第 3 种方法：用多线程消除停顿</h3><p>就像可以边烧水边炒菜一样，<br>当我们知道某种操作耗时，<br>我们就先去处理别的事情。</p>
+<h3 id="第-3-种方法：用多线程隐藏停顿（hide-stall）"><a href="#第-3-种方法：用多线程隐藏停顿（hide-stall）" class="headerlink" title="第 3 种方法：用多线程隐藏停顿（hide stall）"></a>第 3 种方法：用多线程隐藏停顿（hide stall）</h3><p>就像可以边烧水边炒菜一样，<br>当我们知道某种操作耗时，<br>我们就先去处理别的事情。</p>
 <blockquote>
 <p>等水烧开，再去关火。</p>
 </blockquote>
@@ -271,6 +278,7 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 </ul>
 <p>使用一个核心，我们可以创建 4 个线程，<br>按顺序执行这些线程。<br>当线程 1 访问内存、等待数据的时候<br>（前面提到的大约 250 个时钟周期），<br>让线程 2 进行计算操作，<br>当线程 2 访问内存、等待数据的时候，<br>让线程 3 进行计算…</p>
 <p>由此，我们得到了大致的多线程执行时间流：<br class='item-img' data-src='/imgs/cs149/cs149-slide_060.jpg'><img src="/imgs/cs149/cs149-slide_060.jpg" alt="用多线程隐藏停顿"><br>这个程序的 cpu 利用率为：100%</p>
+<p>我们并没有减少停顿时间，<br>我们只是在停顿时间内去做别的工作。</p>
 <blockquote>
 <p>等待，但不仅仅是等待</p>
 </blockquote>
@@ -280,12 +288,12 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <h3 id="多线程，具体多少线程？"><a href="#多线程，具体多少线程？" class="headerlink" title="多线程，具体多少线程？"></a>多线程，具体多少线程？</h3><p>继续回想案例：计算一组 <code>y[i]=sin(x[i])</code></p>
 <p>假设：计算耗时 20%，传输数据耗时 80%。</p>
 <p>假如只有一个线程，<br>那么 cpu 有 80% 的时间在 stall（停顿），<br>也就是等待内存读写（load&#x2F;read memory）。</p>
-<p>如果有 5 个线程，<br>那么在 1 个线程等待数据的 80%时间内，<br>剩下的 4 个线程可以完全占用 cpu，<br>当数据传输完毕，线程 1 回归计算操作，<br>cpu 利用率达到了 100%，<br>耗时缩短为原来的 20%，<br>从耗时结果上看，我们“消除了停顿”。</p>
+<p>如果有 5 个线程，<br>那么在 1 个线程等待数据的 80%时间内，<br>剩下的 4 个线程可以完全占用 cpu，<br>当数据传输完毕，线程 1 回归计算操作，<br>cpu 利用率达到了 100%，<br>耗时缩短为原来的 20%，<br>从耗时结果上看，我们“隐藏了停顿”。</p>
 <p>更多的线程不会带来更多的性能提升，<br>cpu 利用率已经到了 100%，<br>再增加线程反而会因为上下文切换，<br>导致耗时更多。</p>
 <p class='item-img' data-src='/imgs/cs149/cs149-slide_069.jpg'><img src="/imgs/cs149/cs149-slide_069.jpg" alt="多少线程？"></p>
 <p>那么，当计算耗时占比为 <code>x</code>（x∈(0, 1)）时，应该设置几个线程？</p>
 <p>先想象一个线程在执行，<br>数据传输时间占比为：<code>1-x</code></p>
-<p>为了占满等待时间，我们需要几个额外的线程呢？</p>
+<p>为了占满（cover）等待时间，我们需要几个额外的线程呢？</p>
 <p>那当然是 <code>(1-x)/x</code> 个啦。</p>
 <p>所以总线程数是：<code>y = (1-x)/x + 1 = 1/x</code></p>
 <blockquote>
@@ -315,14 +323,14 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <li>一致控制流 Coherent control flow</li>
 <li>硬件多线程 Hardware multi-threading<ul>
 <li>交错多线程 Interleaved multi-threading</li>
-<li>同时多线程 Simutaneous multi-threading</li>
+<li>同时多线程 Simultaneous multi-threading</li>
 </ul>
 </li>
 </ul>
 <h3 id="思考题："><a href="#思考题：" class="headerlink" title="思考题："></a>思考题：</h3><p>你写了一个 C 语言应用程序，生成了 2 个线程</p>
 <p>你的应用程序运行在如下处理器上：</p>
 <ul>
-<li><p>2 个核心，每个核心 2 个执行上下文，每个时钟最多执行 （__） 条指令，一条指令是 8 宽的 SIMD 指令。</p>
+<li><p>2 个核心，每个核心 2 个执行上下文，每个时钟最多执行 （ ） 条指令，一条指令是 8 宽的 SIMD 指令。</p>
 </li>
 <li><p>问题 1：谁负责将应用程序的线程映射到处理器的线程执行上下文?</p>
 <ul>
@@ -334,4 +342,140 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <li><p>问题 3：如果您的 C 程序派生了 5 个线程，如何分配给执行上下文？</p>
 </li>
 </ul>
-<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2025/01/16/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%95%99%E5%85%BB%E7%9A%84%E8%BF%B7%E6%80%9D%E3%80%8B/">读书笔记-《教养的迷思》 Prev →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">wwnao</a></h1><div id="description"><p>友利奈绪-勿忘我的博客</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/tomorinao-www"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/186677485"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CS149-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97-%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">CS149-并行计算-斯坦福大学-学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%B8%80%EF%BC%9AWhy-Parallelism-Why-Efficiency"><span class="toc-number">2.</span> <span class="toc-text">其一：Why Parallelism? Why Efficiency?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#demo1%EF%BC%9A%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B9%B6%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">demo1：第一个并行程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%EF%BC%9F-What-is-a-computer-program"><span class="toc-number">2.2.</span> <span class="toc-text">什么是计算机程序？ What is a computer program ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F-What-does-a-processor-do"><span class="toc-number">2.3.</span> <span class="toc-text">处理器做了什么？ What does a processor do ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9Aa-x-x-y-y-z-z"><span class="toc-number">2.4.</span> <span class="toc-text">案例：a &#x3D; x * x + y * y + z * z</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%EF%BC%88ChatGPT%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">编译优化（ChatGPT）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%84%E5%AD%98%E5%99%A8%E6%9C%80%E5%A4%9A%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99%EF%BC%88Maximizing-Register-Usage%EF%BC%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">1. 寄存器最多使用原则（Maximizing Register Usage）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D%E5%92%8C%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.2.</span> <span class="toc-text">2. 寄存器分配和寄存器重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.3.</span> <span class="toc-text">3. 局部变量优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%86%85%E8%81%94%E6%89%A9%E5%B1%95%EF%BC%88Inlining%EF%BC%89"><span class="toc-number">2.5.4.</span> <span class="toc-text">4. 内联扩展（Inlining）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96%EF%BC%88Loop-Optimization%EF%BC%89"><span class="toc-number">2.5.5.</span> <span class="toc-text">5. 循环优化（Loop Optimization）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AF%84%E5%AD%98%E5%99%A8%E5%8E%8B%E5%8A%9B%E5%92%8C%E6%BA%A2%E5%87%BA%EF%BC%88Register-Pressure-and-Spill%EF%BC%89"><span class="toc-number">2.5.6.</span> <span class="toc-text">6. 寄存器压力和溢出（Register Pressure and Spill）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%87%AA%E5%8A%A8%E5%90%91%E9%87%8F%E5%8C%96"><span class="toc-number">2.5.7.</span> <span class="toc-text">7. 自动向量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">2.5.8.</span> <span class="toc-text">8. 多级缓存和数据局部性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%9A%E6%A0%B8%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.9.</span> <span class="toc-text">9. 并行计算和多核优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E6%80%A7%EF%BC%88ILP%EF%BC%89%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.10.</span> <span class="toc-text">10. 指令级并行性（ILP）优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.11.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BA%8C%EF%BC%9AA-Modern-Muti-Core-Processor"><span class="toc-number">3.</span> <span class="toc-text">其二：A Modern Muti-Core Processor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%A1%E7%AE%97-y-i-sin-x-i"><span class="toc-number">3.1.</span> <span class="toc-text">案例：计算 y[i]&#x3D;sin(x[i])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E7%BB%B4%E5%BA%A6%E5%B9%B6%E8%A1%8C%E5%8C%96%EF%BC%88%E8%B0%83%E7%94%A8%E6%96%B9%E5%B9%B6%E8%A1%8C%EF%BC%89"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">高维度并行化（调用方并行）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BC%96%E7%A8%8B%EF%BC%88%E5%BA%95%E5%B1%82%E5%B9%B6%E8%A1%8C%EF%BC%89"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">向量编程（底层并行）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF"><span class="toc-number">3.1.1.</span> <span class="toc-text">条件分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">现代多核处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A7%8D%E4%B8%8D%E5%90%8C%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="toc-number">3.2.1.</span> <span class="toc-text">3 种不同形式的并行执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E5%99%A8-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">现代多核处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98%EF%BC%88Part2%EF%BC%9Aaccessing-memory%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">第二部分：访问内存（Part2：accessing memory）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E9%9D%9E%E5%B8%B8%E9%95%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E5%BB%B6%E8%BF%9F"><span class="toc-number">3.3.0.1.</span> <span class="toc-text">回想：非常长的数据访问延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E7%BC%93%E5%AD%98%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-number">3.3.0.2.</span> <span class="toc-text">回想：缓存未命中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%A2%84%E5%8F%96"><span class="toc-number">3.3.0.3.</span> <span class="toc-text">回想：数据预取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-3-%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%B6%88%E9%99%A4%E5%81%9C%E9%A1%BF"><span class="toc-number">3.3.1.</span> <span class="toc-text">第 3 种方法：用多线程消除停顿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%85%B7%E4%BD%93%E5%A4%9A%E5%B0%91%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-number">3.3.2.</span> <span class="toc-text">多线程，具体多少线程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">3.3.3.</span> <span class="toc-text">硬件多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.3.4.</span> <span class="toc-text">你应该知道的一些术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%9A"><span class="toc-number">3.3.5.</span> <span class="toc-text">思考题：</span></a></li></ol></li></ol></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>
+<h1 id="其三：Multi-Core-Architecture-Part-II-ISPC-Programming-Abstractions"><a href="#其三：Multi-Core-Architecture-Part-II-ISPC-Programming-Abstractions" class="headerlink" title="其三：Multi-Core Architecture Part II + ISPC Programming Abstractions"></a>其三：Multi-Core Architecture Part II + ISPC Programming Abstractions</h1><blockquote>
+<p>第三章：多核架构第二部分（延迟&#x2F;带宽 问题） + ISPC 编程概述</p>
+</blockquote>
+<h3 id="复习"><a href="#复习" class="headerlink" title="复习"></a>复习</h3><h4 id="回想：烹饪过程"><a href="#回想：烹饪过程" class="headerlink" title="回想：烹饪过程"></a>回想：烹饪过程</h4><blockquote>
+<p>当你需要等待一件事，那你就去做另一件事</p>
+</blockquote>
+<p>多线程为什么能提高效率？<br>本质是通过 <strong>停顿时切换</strong>（<strong>switch on stall</strong>），<br>也就是在停顿时干别的事，<br>消除了停顿时间。</p>
+<p>在停顿、等待时，切换任务，去干别的事情，<br>保证计算机资源充分利用，<br>“压榨硬件性能”、“物尽其用”。</p>
+<h2 id="现代处理器"><a href="#现代处理器" class="headerlink" title="现代处理器"></a>现代处理器</h2><h4 id="例子：Kayvons-虚构的多核芯片"><a href="#例子：Kayvons-虚构的多核芯片" class="headerlink" title="例子：Kayvons 虚构的多核芯片"></a>例子：Kayvons 虚构的多核芯片</h4><p>现在，我们假想有一个处理器，性能参数如下：</p>
+<ul>
+<li>16 核心</li>
+<li>8 SIMD ALUs 每核心（共 128）</li>
+<li>4 线程 每核心（共 64 线程）（硬件多线程）</li>
+<li>16 最大并行（simultaneous）指令流</li>
+<li>64 最大并发（concurrent）指令流</li>
+<li>那么需要创建 512 个任务（task），如果你要完全“隐藏”延迟</li>
+</ul>
+<h4 id="例子：Intel-Skylake-Kaby-Lake-core"><a href="#例子：Intel-Skylake-Kaby-Lake-core" class="headerlink" title="例子：Intel Skylake&#x2F;Kaby Lake core"></a>例子：Intel Skylake&#x2F;Kaby Lake core</h4><blockquote>
+<ul>
+<li>Skylake 微架构（第六代 Intel Core）</li>
+<li>发布时间：2015 年</li>
+<li>制程工艺：采用 14nm 工艺。</li>
+<li>支持 DDR4 内存：首次支持 DDR4 内存（同时兼容 DDR3L），大幅提升内存带宽。</li>
+<li>微架构更新：<ul>
+<li>执行单元优化：增加了调度器和缓冲区大小，提升多线程性能。</li>
+<li>分支预测增强：改进了分支预测算法，减少错误预测的开销。</li>
+<li>更深的流水线：更高的指令并行性，使得单核性能（IPC）显著提升。</li>
+<li>三级缓存改进：更高效的共享缓存，提高多核间的数据访问速度。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p class='item-img' data-src='/imgs/cs149/cs149-slide_095.jpg'><img src="/imgs/cs149/cs149-slide_095.jpg" alt="Intel Skylake/Kaby Lake core"><br>这张图是 Intel Skylake&#x2F;Kaby Lake 架构 CPU 的其中一个核心 Core 0.<br>双路多线程核心（2 线程）。<br>每个核心最多可以同时运行 4 个独立的标量指令和 3 个 8 宽的向量指令<br>（最多 2 个向量相乘或 3 个向量相加）</p>
+<blockquote>
+<p>学生：双线程可以同时运行？但我们仍然需要按顺序取指令？额外的取指器&#x2F;解码器是如何起作用的？</p>
+<p>老师（Kayvon）：宽松地讲，可以想象这群取值器&#x2F;解码器看作一个高级的取值和解码单元（”fancy fetch and decode unit”），它们有能力把“一堆指令”塞满“一堆执行单元（a bunch of execution units）”，取指器&#x2F;解码器的操作是，从 Thread0 中找一些指令，在 Thread1 中找到一些指令，然后我有很多黄框框（ALUs）需要被填满，我要做的就是尽可能地用指令填满这些黄框框，来充分利用 CPU 的计算性能（ALUs）。</p>
+<p>“every thing here composes”，<br>在这个芯片上，一切都组合在了一起<br>这个芯片是一个：</p>
+<ul>
+<li>超标量芯片（Superscalar）</li>
+<li>SIMD 芯片</li>
+<li>硬件同时多线程芯片（Intel 超线程）</li>
+<li>多核芯片</li>
+</ul>
+</blockquote>
+<p><strong>我的补充</strong>：</p>
+<ul>
+<li>然而有的指令是标量，有的是向量，有的指令有依赖关系，有的指令可以并行执行但间隔太远，它们并不一定能并行，这取决于程序。</li>
+<li>程序（指令流）并不会按顺序执行，因为很可能你写的程序编译后，可并行性差得要命！因此，现代处理器会乱序执行。</li>
+<li>早期超线程技术中，会有缓存问题。比如线程 1 修改了线程 2 的缓存，导致缓存失效需要重新读取。有时，减少线程数会有利于应用程序更好地运行。</li>
+<li>即使是目前，超线程技术仍存在安全问题。因此，一些安全专家建议全面禁止超线程。</li>
+</ul>
+<h4 id="例子：NVIDIA-V100-GPU"><a href="#例子：NVIDIA-V100-GPU" class="headerlink" title="例子：NVIDIA V100 GPU"></a>例子：NVIDIA V100 GPU</h4><ul>
+<li>共 80 个“SM（Streaming Multiprocessor）” 核心</li>
+<li>每个 SM 有 64 个 warp 执行上下文</li>
+<li>SIMD ALUs 位宽为 16，启动 2 个时钟周期后为 32</li>
+<li><code>64 \* 32 = 2048</code> 最大数据并发量&#x2F;SM</li>
+</ul>
+<p><code>80 \* 2048 = 163840</code> 最大数据并发量（每个时钟周期）<br>（另注：不是并行，并行量略低）</p>
+<blockquote>
+<p>[!NOTE]<br>并行计算性能为：<br>FP32 性能 &#x3D; CUDA 核心数 × 时钟频率 × 每个核心每周期的运算</p>
+<p>FP32 性能 &#x3D; <code>5120 × 1.53GHz × 2 = 15.7 TFLOPS</code> &#x3D; 15.7 * 10^12 FLOPS</p>
+<p>大约每秒 16 万亿次 32 位浮点运算</p>
+</blockquote>
+<p>仅在硬件级别，就提供了 16 万的并发量。<br>这还没有考虑，<br>实际任务的计算耗时与数据传输耗时占比，<br>为了完全覆盖停顿时间，<br>所需要的额外线程数。<br>如果仍然使用计算 sinx 的任务来占满这个芯片，<br>除非你有成千上万的数据要处理，<br>否则还是别费劲了。<br>这就是为什么一个小型 DNN 在大型 GPU 上运行不佳。</p>
+<blockquote>
+<p>因为我们没有足够多的任务去塞满它</p>
+</blockquote>
+<h2 id="如何高效利用现代处理器？"><a href="#如何高效利用现代处理器？" class="headerlink" title="如何高效利用现代处理器？"></a>如何高效利用现代处理器？</h2><p>为了高效地利用现代并行处理器，必须：</p>
+<ol>
+<li>有足够多的并行工作来利用所有可用的执行单元<br>（跨多个核心和每个核心的多个执行单元）</li>
+<li>并行工作任务组必须要求相同的指令顺序<br>（利用 SIMD 执行）</li>
+<li>（软件要向硬件）暴露比处理器 ALUs 数更多的并行工作数目，来保证并发能够隐藏内存停滞。</li>
+</ol>
+<h3 id="多线程的另一个作用：塞满计算单元"><a href="#多线程的另一个作用：塞满计算单元" class="headerlink" title="多线程的另一个作用：塞满计算单元"></a>多线程的另一个作用：塞满计算单元</h3><p>继续设想一个处理器，<br>他的 ALUs 支持 4 个标量指令和 3 个向量指令。</p>
+<p>假如单线程运行，<br>硬件最多只能发现 2 个标量可以并行<br>（或者 2 个向量指令，<br>或者 1 个标量 1 个向量），<br>因为其他指令有依赖关系或者相距过远无法并行。</p>
+<p>当双线程运行，<br>硬件可能就会在 thread0 找到 2 个标量指令，<br>在 thread1 找到 2 个向量指令，<br>然后同时运行它们。</p>
+<p>当线程数来到 4 个，<br>处理器很聪明的找到了 4 个标量指令和 3 个向量指令，<br>然后把它们塞满 ALUs，<br>这样，这个虚构处理器就达到了最高的利用率。</p>
+<p>我们就知道了<strong>乱序执行（指令重排）</strong>的好处之一：<br>原本由于相距过远无法并行的指令，<br>打乱顺序后紧挨在了一起，<br>就可以并行了<br>（在没有依赖关系的条件下）。</p>
+<p><strong>那如果有依赖关系呢？</strong></p>
+<ul>
+<li>内存屏障：处理器会通过内存屏障（读、写、全屏障）等技术确保逻辑无误。</li>
+<li>寄存器重命名：通过寄存器重命名技术，处理器可以消除伪依赖关系，从而提高并行度。</li>
+</ul>
+<blockquote>
+<p>[挖坑]<br>Kayvon 老师：但是 AMD 和 NVIDIA 的 GPU 工作方式略有不同</p>
+</blockquote>
+<h3 id="GPU-SIMT-Single-Instruction-Multiple-Thread"><a href="#GPU-SIMT-Single-Instruction-Multiple-Thread" class="headerlink" title="GPU SIMT(Single Instruction Multiple Thread)"></a>GPU SIMT(Single Instruction Multiple Thread)</h3><p>大部分现代 GPU 永远都只会编译生成<br><strong>标量指令（scalar instruction）</strong></p>
+<p>GPU 核会检测硬件线程的执行指令是否相同<br>（通过判断程序计数器（pc）），<br>如果相同，就用一个向量指令来代替原本的多个相同的标量指令。</p>
+<p>假设一个 GPU 核心有一个 8 位宽的向量 ALUs<br>（可以同时计算八个操作）。<br>假设有 8 个线程，<br>每当这 8 个线程的程序计数器（pc）相同，<br>那么就在这 8 位宽的向量运算器上<strong>同时</strong>运行这 8 个指令<br>这与编译了一个 8 位宽 SIMD 向量操作效果相同。</p>
+<p>那么如果有 7 个线程的 pc 相同，仅有一个线程不同呢？</p>
+<p>那个线程会被 “masked off”（屏蔽）。（回想：第二讲中的<a href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF">条件分支</a>）</p>
+<h3 id="回想：思考题"><a href="#回想：思考题" class="headerlink" title="回想：思考题"></a>回想：思考题</h3><p>你写了一个 C 语言应用程序，生成了 2 个线程</p>
+<p>你的应用程序运行在如下处理器上：</p>
+<ul>
+<li><p>2 个核心，每个核心 2 个执行上下文，每个时钟最多执行 （ ） 条指令，一条指令是 8 宽的 SIMD 指令。</p>
+</li>
+<li><p>问题 1：谁负责将应用程序的线程映射到处理器的线程执行上下文?</p>
+<ul>
+<li>答：操作系统（Operating system）</li>
+</ul>
+</li>
+<li><p>问题 2：如果你来实现一个操作系统，那么如何将这 2 个线程分配给 4 个执行上下文？</p>
+</li>
+<li><p>问题 3：如果您的 C 程序派生了 5 个线程，如何分配给执行上下文？</p>
+<ul>
+<li>如果是两个截然不同的线程，把他们都分配到一个核上显然是不太合适的</li>
+<li>那如果这俩线程需要访问相同的数据呢？想要共享缓存或者其他资源呢？答案可能恰恰相反</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>学生：现在我们有多个执行上下文，那么如何决定是使用硬件多线程还是使用超标量架构？</p>
+<p>Kayvon：这是芯片（chip）实现的细节，不是操作系统的任务。</p>
+<p>操作系统会说：“hey，chip！请你给我在 core1 上运行 thread3。”</p>
+<p>芯片会在每个时钟周期，根据自己拥有的执行上下文，决定执行哪些指令，如何执行，这个决策每秒数亿次，都发生在硬件中。</p>
+<p>操作系统还可能这样说：“你要 8 个线程来塞满你对吧。好，这是我从 1000 个准备好的用户线程中挑选的 8 个，你先给我执行一下子。”</p>
+<p>这就是操作系统级别的<strong>上下文切换</strong>。<br>这种操作大约耗时十万个 cycles（时钟周期），<br>且发生频率很低。</p>
+</blockquote>
+<blockquote>
+<p>学生：有没有办法让编译器强制执行一些行为？</p>
+<p>Kayvon：是的。现代操作系统有 APIs，可以指定一个线程在特定的执行上下文中运行。</p>
+<p>学生追问：哦不，只是强制执行超标量架构的与否。比如说我就是不想乱序执行，不想让多个运算器协作</p>
+<p>Kayvon：据我所知，这不是你可以过多干预的事。<br>当然，你可以说你想关闭超线程这一功能，这很简单。<br>如果你要干预处理器调度细节，据我所知，我并不清楚你有多少控制权。<br>也许在 BIOS 级别可以，但在标准 OS 中可能不行。</p>
+</blockquote>
+<h3 id="思考题：C-i-A-i-B-i"><a href="#思考题：C-i-A-i-B-i" class="headerlink" title="思考题：C[i] &#x3D; A[i] * B[i]"></a>思考题：C[i] &#x3D; A[i] * B[i]</h3><p>假如有两个非常长的数组，成千上万。<br>那么，它们之间的加法或者乘法计算，<br>并将结果存入 C 数组中，<br>这个计算是否适合在现代的面向吞吐量的并行处理器上执行？</p>
+<p>你会觉得这个向量运算太适合在现代处理器上执行了，<br>现代处理器不就是向量优化的嘛？</p>
+<p>但实际上，这可能是一个最糟糕的程序，<br>在现代处理器上，<br>然后你每天都会运行它。</p>
+<p>为什么？</p>
+<p>想象一下，这些数据存放在哪里？<br>硬盘上。</p>
+<ul>
+<li>最新的闪存固态硬盘，传输速率也不超过 64GB 每秒（PCIe 5.0）</li>
+<li>Nvidia V100 的计算性能大致为 16 万亿次浮点运算每秒。</li>
+</ul>
+<p>假如我们正好需要算 16 万亿个浮点运算。<br>也就是说，我们有 <code>2\*16 = 32</code> 万亿个数字存放在硬盘上，<br>需要花费大量时间（<code>4*16TB / 64GBps = 8ks = 2.3小时</code>）搬运到我们的 V100 上，<br>然后 V100 花了一秒就算完了，<br>接着我们又要花 2 个小时把数据搬回去。</p>
+<p>是什么限制了并行计算效率？</p>
+<p>带宽。</p>
+<h2 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h2><div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2025/01/16/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E6%95%99%E5%85%BB%E7%9A%84%E8%BF%B7%E6%80%9D%E3%80%8B/">读书笔记-《教养的迷思》 Prev →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">wwnao</a></h1><div id="description"><p>友利奈绪-勿忘我的博客</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/tomorinao-www"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/186677485"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CS149-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97-%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">CS149-并行计算-斯坦福大学-学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%B8%80%EF%BC%9AWhy-Parallelism-Why-Efficiency"><span class="toc-number">2.</span> <span class="toc-text">其一：Why Parallelism? Why Efficiency?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#demo1%EF%BC%9A%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B9%B6%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">demo1：第一个并行程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%EF%BC%9F-What-is-a-computer-program"><span class="toc-number">2.2.</span> <span class="toc-text">什么是计算机程序？ What is a computer program ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F-What-does-a-processor-do"><span class="toc-number">2.3.</span> <span class="toc-text">处理器做了什么？ What does a processor do ?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9Aa-x-x-y-y-z-z"><span class="toc-number">2.4.</span> <span class="toc-text">案例：a &#x3D; x * x + y * y + z * z</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%EF%BC%88ChatGPT%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">编译优化（ChatGPT）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AF%84%E5%AD%98%E5%99%A8%E6%9C%80%E5%A4%9A%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%88%99%EF%BC%88Maximizing-Register-Usage%EF%BC%89"><span class="toc-number">2.5.1.</span> <span class="toc-text">1. 寄存器最多使用原则（Maximizing Register Usage）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AF%84%E5%AD%98%E5%99%A8%E5%88%86%E9%85%8D%E5%92%8C%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">2.5.2.</span> <span class="toc-text">2. 寄存器分配和寄存器重命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.3.</span> <span class="toc-text">3. 局部变量优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%86%85%E8%81%94%E6%89%A9%E5%B1%95%EF%BC%88Inlining%EF%BC%89"><span class="toc-number">2.5.4.</span> <span class="toc-text">4. 内联扩展（Inlining）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BE%AA%E7%8E%AF%E4%BC%98%E5%8C%96%EF%BC%88Loop-Optimization%EF%BC%89"><span class="toc-number">2.5.5.</span> <span class="toc-text">5. 循环优化（Loop Optimization）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AF%84%E5%AD%98%E5%99%A8%E5%8E%8B%E5%8A%9B%E5%92%8C%E6%BA%A2%E5%87%BA%EF%BC%88Register-Pressure-and-Spill%EF%BC%89"><span class="toc-number">2.5.6.</span> <span class="toc-text">6. 寄存器压力和溢出（Register Pressure and Spill）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%87%AA%E5%8A%A8%E5%90%91%E9%87%8F%E5%8C%96"><span class="toc-number">2.5.7.</span> <span class="toc-text">7. 自动向量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%B1%80%E9%83%A8%E6%80%A7"><span class="toc-number">2.5.8.</span> <span class="toc-text">8. 多级缓存和数据局部性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97%E5%92%8C%E5%A4%9A%E6%A0%B8%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.9.</span> <span class="toc-text">9. 并行计算和多核优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%E6%80%A7%EF%BC%88ILP%EF%BC%89%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.10.</span> <span class="toc-text">10. 指令级并行性（ILP）优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.11.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BA%8C%EF%BC%9AA-Modern-Muti-Core-Processor"><span class="toc-number">3.</span> <span class="toc-text">其二：A Modern Muti-Core Processor</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%AE%A1%E7%AE%97-y-i-sin-x-i"><span class="toc-number">3.1.</span> <span class="toc-text">案例：计算 y[i]&#x3D;sin(x[i])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E7%BB%B4%E5%BA%A6%E5%B9%B6%E8%A1%8C%E5%8C%96%EF%BC%88%E8%B0%83%E7%94%A8%E6%96%B9%E5%B9%B6%E8%A1%8C%EF%BC%89"><span class="toc-number">3.1.0.1.</span> <span class="toc-text">高维度并行化（调用方并行）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E9%87%8F%E7%BC%96%E7%A8%8B%EF%BC%88%E5%BA%95%E5%B1%82%E5%B9%B6%E8%A1%8C%EF%BC%89"><span class="toc-number">3.1.0.2.</span> <span class="toc-text">向量编程（底层并行）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF"><span class="toc-number">3.1.1.</span> <span class="toc-text">条件分支</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">现代多核处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A7%8D%E4%B8%8D%E5%90%8C%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="toc-number">3.2.1.</span> <span class="toc-text">3 种不同形式的并行执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%9A%E6%A0%B8%E5%A4%84%E7%90%86%E5%99%A8-1"><span class="toc-number">3.2.2.</span> <span class="toc-text">现代多核处理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9A%E8%AE%BF%E9%97%AE%E5%86%85%E5%AD%98%EF%BC%88Part2%EF%BC%9Aaccessing-memory%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">第二部分：访问内存（Part2：accessing memory）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E9%9D%9E%E5%B8%B8%E9%95%BF%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E5%BB%B6%E8%BF%9F"><span class="toc-number">3.3.0.1.</span> <span class="toc-text">回想：非常长的数据访问延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E7%BC%93%E5%AD%98%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-number">3.3.0.2.</span> <span class="toc-text">回想：缓存未命中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E6%95%B0%E6%8D%AE%E9%A2%84%E5%8F%96"><span class="toc-number">3.3.0.3.</span> <span class="toc-text">回想：数据预取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-3-%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%9A%90%E8%97%8F%E5%81%9C%E9%A1%BF%EF%BC%88hide-stall%EF%BC%89"><span class="toc-number">3.3.1.</span> <span class="toc-text">第 3 种方法：用多线程隐藏停顿（hide stall）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%85%B7%E4%BD%93%E5%A4%9A%E5%B0%91%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-number">3.3.2.</span> <span class="toc-text">多线程，具体多少线程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">3.3.3.</span> <span class="toc-text">硬件多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9C%AF%E8%AF%AD"><span class="toc-number">3.3.4.</span> <span class="toc-text">你应该知道的一些术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%9A"><span class="toc-number">3.3.5.</span> <span class="toc-text">思考题：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%B8%89%EF%BC%9AMulti-Core-Architecture-Part-II-ISPC-Programming-Abstractions"><span class="toc-number">4.</span> <span class="toc-text">其三：Multi-Core Architecture Part II + ISPC Programming Abstractions</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E4%B9%A0"><span class="toc-number">4.0.1.</span> <span class="toc-text">复习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E7%83%B9%E9%A5%AA%E8%BF%87%E7%A8%8B"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">回想：烹饪过程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">4.1.</span> <span class="toc-text">现代处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9AKayvons-%E8%99%9A%E6%9E%84%E7%9A%84%E5%A4%9A%E6%A0%B8%E8%8A%AF%E7%89%87"><span class="toc-number">4.1.0.1.</span> <span class="toc-text">例子：Kayvons 虚构的多核芯片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9AIntel-Skylake-Kaby-Lake-core"><span class="toc-number">4.1.0.2.</span> <span class="toc-text">例子：Intel Skylake&#x2F;Kaby Lake core</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9ANVIDIA-V100-GPU"><span class="toc-number">4.1.0.3.</span> <span class="toc-text">例子：NVIDIA V100 GPU</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%AB%98%E6%95%88%E5%88%A9%E7%94%A8%E7%8E%B0%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">如何高效利用现代处理器？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BD%9C%E7%94%A8%EF%BC%9A%E5%A1%9E%E6%BB%A1%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83"><span class="toc-number">4.2.1.</span> <span class="toc-text">多线程的另一个作用：塞满计算单元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-SIMT-Single-Instruction-Multiple-Thread"><span class="toc-number">4.2.2.</span> <span class="toc-text">GPU SIMT(Single Instruction Multiple Thread)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%83%B3%EF%BC%9A%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">4.2.3.</span> <span class="toc-text">回想：思考题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98%EF%BC%9AC-i-A-i-B-i"><span class="toc-number">4.2.4.</span> <span class="toc-text">思考题：C[i] &#x3D; A[i] * B[i]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A6%E5%AE%BD"><span class="toc-number">4.3.</span> <span class="toc-text">带宽</span></a></li></ol></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

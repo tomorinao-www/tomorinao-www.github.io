@@ -306,3 +306,9 @@ IT 和 it
   > -- 雷军
   > 1996 年 5 月写于金山西点 BBS
   > 【题记】 如果程序人生的话，这条路太漫长
+- https://fhfirehuo.github.io/Attacking-Java-Rookie/Chapter02/LSMTree.html
+  > LSM 树，即日志结构合并树(Log-Structured Merge-Tree)。
+  > 其实它并不属于一个具体的数据结构，它更多是一种数据结构的设计思想。
+  > 大多 NoSQL 数据库核心思想都是基于 LSM 来做的， 只是具体的实现不同。
+  >
+  > > 这是一本 java 程序员写的必备知识积累之书。可以说是一本进击之书。命名为《进击的 java 菜鸟》。

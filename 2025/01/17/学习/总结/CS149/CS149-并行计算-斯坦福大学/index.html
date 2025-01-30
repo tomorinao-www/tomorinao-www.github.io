@@ -644,20 +644,43 @@ document.addEventListener("pjax:complete", reset);reset()})</script><meta name="
 <h3 id="案例：三个程序"><a href="#案例：三个程序" class="headerlink" title="案例：三个程序"></a>案例：三个程序</h3><p>操作系统一般通过软&#x2F;硬件计时器，<br>来周期性地处理各个进程、线程的上下文切换，<br>比如说我的电脑有 8 个硬件线程，<br>在某一时刻，计时器 a 到点了，<br>操作系统就会对硬件说：嘿，硬件，这 8 个线程你去运行吧！<br>在另一时刻，计时器 b 到点了，<br>操作系统经过一些处理和判断后，<br>挑选出新的 8 个线程，继续交给硬件执行。</p>
 <blockquote>
 <p>Kayvon：既然你（学生）问了，那我正好有一个 C 语言测试程序（去除了所有编译器优化）。</p>
+</blockquote>
 <ul>
-<li>一个基准工作函数 <code>do_work()</code>，它什么也不做，函数体为空，仅仅用来被调用。</li>
-<li>test 0：单线程调用 <code>do_work()</code> N 次。</li>
-<li>test 1：为每个任务都创建、执行、销毁一个线程，共 N 个任务。</li>
-<li>test 2：创建线程池（8 个线程），调用 <code>do_work()</code> 总共 N 次就停止。</li>
+<li>**<code>do_work()</code>**：基准工作函数，空函数，仅用于测试调用开销。</li>
+<li><strong>Test 0（单线程）</strong>：在单个线程中调用 <code>do_work()</code> N 次。</li>
+<li><strong>Test 1（大量线程创建与销毁）</strong>：为每次 <code>do_work()</code> 调用创建一个新线程，调用后立即销毁，总共 N 次。</li>
+<li><strong>Test 2（线程池）</strong>：创建 8 个线程的线程池，共同完成 N 次 <code>do_work()</code> 调用。</li>
+<li>其中，N 大约是十亿.</li>
 </ul>
-<p>N 大约是十亿</p>
-<p>结果：</p>
+<p><strong>结果</strong></p>
 <ul>
-<li>test 0：0.001667 s</li>
-<li>test 1：13.15 s</li>
-<li>test 2：0.04 s</li>
+<li><strong>Test 0（单线程）</strong>：0.001667 s</li>
+<li><strong>Test 1（创建大量线程）</strong>：13.15 s</li>
+<li><strong>Test 2（线程池）</strong>：0.04 s</li>
 </ul>
-<p>测试 1 创建最多的线程，花了最长的时间，<br>测试 2 比测试 1 快 333 倍，<br>测试 0 比测试 2 还要快 23.7 倍。</p>
+<p><strong>分析</strong></p>
+<ol>
+<li><p><strong>Test 1 最慢（13.15s）</strong>：</p>
+<ul>
+<li>频繁创建和销毁线程，涉及大量系统调用和调度开销。</li>
+<li>线程的创建和销毁在操作系统层面涉及 <strong>内核上下文切换</strong>，开销非常大（<strong>数十万 CPU 周期</strong>）。</li>
+</ul>
+</li>
+<li><p><strong>Test 2（线程池）比 Test 1 快 333 倍</strong>：</p>
+<ul>
+<li>线程池 <strong>复用</strong> 线程，避免了频繁的创建和销毁。</li>
+<li>线程调度仍然存在，但远低于 Test 1。</li>
+</ul>
+</li>
+<li><p><strong>Test 0（单线程）比 Test 2 还要快 23.7 倍</strong>：</p>
+<ul>
+<li>Test 2 仍然涉及 <strong>线程调度</strong>，而 Test 0 只是在 <strong>同一个线程中执行循环</strong>，完全避免了线程切换的开销。</li>
+<li><strong>用户态函数调用</strong> 比 <strong>线程切换</strong> 快得多。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Kayvon：不要混淆你在操作系统中学到的知识。<br>操作系统的上下文切换一般需要 <code>数十万周期</code>，<br>硬件多线程的上下文切换只需要 <code>1个周期</code>，<br>它们非常不同！<br>如果你要用操作系统的上下文切换来 <code>隐藏内存访问的延迟</code>，<br>内存访问会在 <code>几百个周期</code> 内完成，<br>但你仍然需要等待 <code>数十万个周期</code> 来切换线程上下文。<br>这毫无意义！<br>所以：概念是相同的，但数量级完全不同。</p>
 </blockquote>
 <h1 id="其四：Parallel-Programming-Basics"><a href="#其四：Parallel-Programming-Basics" class="headerlink" title="其四：Parallel Programming Basics"></a>其四：Parallel Programming Basics</h1><blockquote>
 <p>第四讲：并行编程基础</p>

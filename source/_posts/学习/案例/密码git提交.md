@@ -1,10 +1,11 @@
 ---
 title: 密码文件不小心提交了 git？git filter-repo 快速解决！
 date: 2024-10-28 18:43:42
-categories: git
+categories: 案例
 tags:
   - git
   - 踩坑
+  - 案例
 comments: true
 toc: true
 donate: true

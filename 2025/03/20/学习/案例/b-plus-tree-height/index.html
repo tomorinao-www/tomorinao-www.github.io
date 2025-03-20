@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en" theme-mode="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MySQL 数据库表结构、主键索引与 B+ 树高度 | wwnao</title><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="preload" as="font" crossorigin="anonymous" href="/font/Bender.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/BenderLight.ttf"><link rel="preload" as="font" crossorigin="anonymous" href="/font/JetBrainsMono-Regular.woff2"><link rel="stylesheet" href="/css/arknights.css"><style>@font-face {
+  font-family: Bender;
+  src: local('Bender'), url("/font/Bender.ttf"), url("/font/Bender.otf");
+}
+@font-face {
+  font-family: BenderLight;
+  src: local('BenderLight'), url("/font/BenderLight.ttf");
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}
+</style><script>var config = {"root":"/","search":{"preload":false,"activeHolder":"Enter here","blurHolder":"Search","noResult":"Data \"$0\" not found"},"code":{"codeInfo":"$0 - $1 lines","copy":"copy"}}</script><link type="text/css" rel="stylesheet" href="/lib/encrypt/hbe.style.css"><script src="//unpkg.com/mermaid@10.5.0/dist/mermaid.min.js"></script><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lightgallery.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-zoom.css"><link type="text/css" rel="stylesheet" href="//unpkg.com/lightgallery@2.7.1/css/lg-thumbnail.css"><link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"><script>if (window.localStorage.getItem('theme-mode') === 'light')
+ document.documentElement.setAttribute('theme-mode', 'light')
+if (window.localStorage.getItem('theme-mode') === 'dark')
+ document.documentElement.setAttribute('theme-mode', 'dark')</script><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.woff2") format('woff2');
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><style>:root {
+ --dark-background: url('https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg');
+ --light-background: url('/img/bk.jpg');
+ --theme-encrypt-confirm: 'confirm'
+}</style><script defer src="/js/arknights.js"></script><script defer src="/js/search.js"></script><script defer type="module">import mermaid from '//unpkg.com/mermaid@10.5.0/dist/mermaid.esm.mjs';
+window.mermaid = mermaid;
+code.paintMermaid();
+</script><script async src="//unpkg.com/lightgallery@2.7.1/lightgallery.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script><script async src="//unpkg.com/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script><script async src="/lib/encrypt/hbe.js"></script><script async src="/js/pjax.js"></script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js','data-pjax','.busuanzi'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><script class="pjax-js">reset= () => {document.querySelector('.lg-container')?.remove()
+lightGallery(document.getElementById('post-bg'), {
+  plugins: [lgZoom,lgThumbnail],
+  selector: '.item-img'})}</script><script>window.addEventListener("load",() => {pjax = new Pjax({
+ cacheBust: false,
+ selectors: ['title','article','#aside-block','.pjax-js'],
+ switches: {'article': Pjax.switches.sideBySide},
+ switchesOptions: {
+   'article': {
+     classNames: {
+       remove: "pjax-out",
+       add: "pjax-in"
+     }
+   }
+ }
+});
+document.addEventListener("pjax:complete", reset);reset()})</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="loading" style="opacity: 0;"><div class="loadingBar left"></div><div class="loadingBar right"></div></div><main><header class="closed"><div class="navBtn"><i class="navBtnIcon"><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span><span class="navBtnIconBar"></span></i></div><nav><div class="navItem" id="search-header"><span class="navItemTitle"><input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="Search" spellcheck="false" maxlength="50" type="text" id="search-input"></span></div><div class="navItem" id="search-holder"></div><div class="search-popup" tabindex="0"><div id="search-result"></div></div><ol class="navContent"><li class="navItem"><a class="navBlock" href="/"><span class="navItemTitle">Home</span></a></li><li class="navItem" matchdata="categories,tags"><a class="navBlock" href="/archives/"><span class="navItemTitle">Archives</span></a></li></ol></nav></header><article><div id="post-bg"><div id="post-title"><h1>MySQL 数据库表结构、主键索引与 B+ 树高度</h1></div><hr><div id="post-content"><h1 id="MySQL-数据库表结构、主键索引与-B-树高度"><a href="#MySQL-数据库表结构、主键索引与-B-树高度" class="headerlink" title="MySQL 数据库表结构、主键索引与 B+ 树高度"></a>MySQL 数据库表结构、主键索引与 B+ 树高度</h1><p>在 MySQL（InnoDB 引擎）中，B+ 树索引是影响查询性能的核心结构之一。表的主键索引会随着数据增长增加层级，影响查询效率。那么，<strong>在不同行数据大小、页大小、主键大小的情况下，B+ 树的高度如何增长？</strong> 本文将通过数学推导，给出 B+ 树高度变化的临界数据行数。</p>
+<h2 id="1-变量定义"><a href="#1-变量定义" class="headerlink" title="1. 变量定义"></a><strong>1. 变量定义</strong></h2><ul>
+<li><strong>record_size</strong>：每行数据的大小（单位：字节）</li>
+<li><strong>page_size</strong>：InnoDB 页大小（单位：字节）</li>
+<li><strong>page_overhead_size</strong>：每个页的额外开销（单位：字节），如页头、页目录等</li>
+<li><strong>key_size</strong>：主键大小（单位：字节）</li>
+<li><strong>address_size</strong>：指针大小（单位：字节）</li>
+</ul>
+<h2 id="2-叶子节点的存储能力"><a href="#2-叶子节点的存储能力" class="headerlink" title="2. 叶子节点的存储能力"></a><strong>2. 叶子节点的存储能力</strong></h2><p>每个数据页（叶子节点）用于存储行数据的空间为：</p>
+<ul>
+<li><code>page_size - page_overhead_size</code></li>
+</ul>
+<p>每个页最多存储的行数为：</p>
+<ul>
+<li><strong>record_num_per_page</strong> &#x3D; <code>(page_size - page_overhead_size) / record_size</code></li>
+</ul>
+<h2 id="3-内部节点的存储能力"><a href="#3-内部节点的存储能力" class="headerlink" title="3. 内部节点的存储能力"></a><strong>3. 内部节点的存储能力</strong></h2><p>每个内部节点存储索引项，每个索引项包含 <strong>主键值 key_size</strong> 和 <strong>指向子节点的指针 address_size</strong>，占用空间为：</p>
+<ul>
+<li><code>key_size + address_size</code></li>
+</ul>
+<p>内部节点的有效存储空间为：</p>
+<ul>
+<li><code>page_size - page_overhead_size</code></li>
+</ul>
+<p>所以，每个内部节点能存储的索引项数为：</p>
+<ul>
+<li><strong>index_num_per_page</strong> &#x3D; <code>(page_size - page_overhead_size) / (key_size + address_size)</code></li>
+</ul>
+<h2 id="4-B-树层级增长的计算"><a href="#4-B-树层级增长的计算" class="headerlink" title="4. B+ 树层级增长的计算"></a><strong>4. B+ 树层级增长的计算</strong></h2><h3 id="第一层（叶子层）"><a href="#第一层（叶子层）" class="headerlink" title="第一层（叶子层）"></a><strong>第一层（叶子层）</strong></h3><p>如果表有 <strong>N</strong> 行数据，需要的叶子节点数：</p>
+<ul>
+<li><strong>leaf_page_num</strong><ul>
+<li>&#x3D; <code>N / record_num_per_page</code></li>
+<li>&#x3D; <code>N * record_size / (page_size - page_overhead_size)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="第二层（索引指向叶子节点）"><a href="#第二层（索引指向叶子节点）" class="headerlink" title="第二层（索引指向叶子节点）"></a><strong>第二层（索引指向叶子节点）</strong></h3><p>每个内部节点能存储的索引项数为 <strong>index_num_per_page</strong>，在第二层，每个索引项数对应一个叶子节点。所以索引页数为：</p>
+<ul>
+<li><strong>lever2_page_num</strong><ul>
+<li>&#x3D; <code>leaf_page_num / index_num_per_page</code></li>
+<li>&#x3D; <code>N / (record_num_per_page * index_num_per_page)</code></li>
+<li>&#x3D; <code>(N * record_size * (key_size + address_size) / (page_size - page_overhead_size)^2)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="第三层（索引指向第二层）"><a href="#第三层（索引指向第二层）" class="headerlink" title="第三层（索引指向第二层）"></a><strong>第三层（索引指向第二层）</strong></h3><ul>
+<li><strong>lever3_page_num</strong><ul>
+<li>&#x3D; <code>lever2_page_num / index_num_per_page</code></li>
+<li>&#x3D; <code>leaf_page_num / index_num_per_page ^ 2</code></li>
+<li>&#x3D; <code>N / (record_num_per_page * index_num_per_page^2)</code></li>
+<li>&#x3D; <code>(N * record_size * (key_size + address_size)^2 / (page_size - page_overhead_size)^3)</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="第四层（索引指向第三层）"><a href="#第四层（索引指向第三层）" class="headerlink" title="第四层（索引指向第三层）"></a><strong>第四层（索引指向第三层）</strong></h3><ul>
+<li><strong>lever4_page_num</strong><ul>
+<li>&#x3D; <code>lever3_page_num / index_num_per_page</code></li>
+<li>&#x3D; <code>leaf_page_num / index_num_per_page ^ 3</code></li>
+<li>&#x3D; <code>N / (record_num_per_page * index_num_per_page^3)</code></li>
+<li>&#x3D; <code>(N * record_size * (key_size + address_size)^3 / (page_size - page_overhead_size)^4)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="5-关键节点数据量临界点"><a href="#5-关键节点数据量临界点" class="headerlink" title="5. 关键节点数据量临界点"></a><strong>5. 关键节点数据量临界点</strong></h2><h3 id="B-树达到-2-层（第一层-第二层）"><a href="#B-树达到-2-层（第一层-第二层）" class="headerlink" title="B+ 树达到 2 层（第一层 + 第二层）"></a><strong>B+ 树达到 2 层（第一层 + 第二层）</strong></h3><p><code>lever2_page_num = 1</code><br>–&gt;</p>
+<ul>
+<li>N &#x3D; <code>record_num_per_page * index_num_per_page^1</code></li>
+</ul>
+<h3 id="B-树达到-3-层（第一层-第二层-第三层）"><a href="#B-树达到-3-层（第一层-第二层-第三层）" class="headerlink" title="B+ 树达到 3 层（第一层 + 第二层 + 第三层）"></a><strong>B+ 树达到 3 层（第一层 + 第二层 + 第三层）</strong></h3><p><code>lever3_page_num = 1</code><br>–&gt;</p>
+<ul>
+<li>N &#x3D; <code>record_num_per_page * index_num_per_page^2</code></li>
+</ul>
+<h3 id="B-树达到-4-层（第一层-第二层-第三层-第四层）"><a href="#B-树达到-4-层（第一层-第二层-第三层-第四层）" class="headerlink" title="B+ 树达到 4 层（第一层 + 第二层 + 第三层 + 第四层）"></a><strong>B+ 树达到 4 层（第一层 + 第二层 + 第三层 + 第四层）</strong></h3><p><code>lever4_page_num = 1</code><br>–&gt;</p>
+<ul>
+<li>N &#x3D; <code>record_num_per_page * index_num_per_page^3</code></li>
+</ul>
+<h2 id="6-结论与优化建议"><a href="#6-结论与优化建议" class="headerlink" title="6. 结论与优化建议"></a><strong>6. 结论与优化建议</strong></h2><table>
+<thead>
+<tr>
+<th>B+ 树高度</th>
+<th>最大数据行数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 层</td>
+<td><code>record_num_per_page * index_num_per_page^1</code></td>
+</tr>
+<tr>
+<td>3 层</td>
+<td><code>record_num_per_page * index_num_per_page^2</code></td>
+</tr>
+<tr>
+<td>4 层</td>
+<td><code>record_num_per_page * index_num_per_page^3</code></td>
+</tr>
+</tbody></table>
+<p>从计算结果来看：</p>
+<ul>
+<li>B+ 树的层数随着数据量呈 <strong>对数级增长</strong>。</li>
+<li>适当增加 <strong>页大小（P）</strong>，减少 <strong>行大小（R）</strong>，能有效降低 B+ 树高度，提高查询性能。</li>
+</ul>
+<h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><p>假设</p>
+<ul>
+<li><strong>record_size</strong>：每行数据的大小 <strong>1k</strong>（单位：字节）</li>
+<li><strong>page_size</strong>：InnoDB 页大小 <strong>16k</strong>（单位：字节）</li>
+<li><strong>page_overhead_size</strong>：每个页的额外开销 <strong>大约 100</strong>（单位：字节），如页头、页目录等</li>
+<li><strong>key_size</strong>：主键大小 <strong>8</strong>（单位：字节）</li>
+<li><strong>address_size</strong>：指针大小 <strong>6</strong>（单位：字节）</li>
+</ul>
+<p>为了便于计算，每个页的额外开销相对可以忽略。</p>
+<ul>
+<li><strong>record_num_per_page</strong><ul>
+<li>&#x3D; <code>(page_size - page_overhead_size) / record_size</code></li>
+<li>~&#x3D; <code>page_size / record_size</code></li>
+<li>&#x3D; <code>16KB / 1KB</code></li>
+<li>&#x3D; <code>16</code></li>
+</ul>
+</li>
+<li><strong>index_num_per_page</strong><ul>
+<li>&#x3D; <code>(page_size - page_overhead_size) / (key_size + address_size)</code></li>
+<li>~&#x3D; <code>page_size / (key_size + address_size)</code></li>
+<li>&#x3D; <code>16KB / (8B + 6B)</code></li>
+<li>~&#x3D; <code>1.14K</code></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>B+ 树高度</th>
+<th>最大数据行数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 层</td>
+<td>18.29 (K) (千)</td>
+</tr>
+<tr>
+<td>3 层</td>
+<td>20.90 (M) (百万)</td>
+</tr>
+<tr>
+<td>4 层</td>
+<td>23.88 (B) (十亿)</td>
+</tr>
+</tbody></table>
+<h3 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a><strong>优化建议</strong></h3><ol>
+<li><strong>合理选择主键大小</strong>：避免使用过大的主键，因为主键会影响索引页存储能力。</li>
+<li><strong>优化数据行大小</strong>：减少行存储空间，例如使用合适的数据类型（TINYINT、SMALLINT 代替 INT）。</li>
+<li><strong>使用分区表</strong>：对于超大表，可以考虑使用 MySQL <strong>分区表</strong> 来减少单个索引的层数。</li>
+<li><strong>监控索引使用情况</strong>：定期使用 <code>SHOW INDEX FROM table_name;</code> 查看索引是否合理。</li>
+</ol>
+<h2 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7. 参考资料"></a><strong>7. 参考资料</strong></h2><ul>
+<li>MySQL 官方文档：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/">https://dev.mysql.com/doc/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coder-zyc/p/16622685.html">https://www.cnblogs.com/coder-zyc/p/16622685.html</a></li>
+</ul>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages" style="justify-content: flex-end"><div class="footer-link" style="width: 50%;right:1px;border-left:1px #fe2 solid"><a href="/2025/03/15/%E6%8E%A8%E8%8D%90/%E8%90%A5%E5%85%BB%E9%A5%AE%E9%A3%9F/">营养饮食来源 Prev →</a></div></div></div></div><div class="bottom-btn"><div><a class="i-top" id="to-top" onClick="scrolls.scrolltop();" title="To Top" style="opacity: 0; display: none;">∧ </a><a class="i-index" id="to-index" href="#toc-div" title="To Catalog">≡</a><a class="i-color" id="color-mode" onClick="colorMode.change()" title="Change Theme"></a></div></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a href="/">wwnao</a></h1><div id="description"><p>友利奈绪-勿忘我的博客</p></div><div id="social-links"><a class="social" target="_blank" rel="noopener" href="https://github.com/tomorinao-www"><i class="fab fa-github" alt="GitHub"></i></a><a class="social" target="_blank" rel="noopener" href="https://space.bilibili.com/186677485"><i class="fa-brands fa-bilibili" alt="BiliBili"></i></a></div></div><div id="aside-block"><div id="toc-div"><h1>Catalog</h1><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%BB%93%E6%9E%84%E3%80%81%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95%E4%B8%8E-B-%E6%A0%91%E9%AB%98%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">MySQL 数据库表结构、主键索引与 B+ 树高度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">1. 变量定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E7%9A%84%E5%AD%98%E5%82%A8%E8%83%BD%E5%8A%9B"><span class="toc-number">1.2.</span> <span class="toc-text">2. 叶子节点的存储能力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%86%85%E9%83%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%AD%98%E5%82%A8%E8%83%BD%E5%8A%9B"><span class="toc-number">1.3.</span> <span class="toc-text">3. 内部节点的存储能力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-B-%E6%A0%91%E5%B1%82%E7%BA%A7%E5%A2%9E%E9%95%BF%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="toc-number">1.4.</span> <span class="toc-text">4. B+ 树层级增长的计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E5%B1%82%EF%BC%88%E5%8F%B6%E5%AD%90%E5%B1%82%EF%BC%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">第一层（叶子层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%88%E7%B4%A2%E5%BC%95%E6%8C%87%E5%90%91%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%EF%BC%89"><span class="toc-number">1.4.2.</span> <span class="toc-text">第二层（索引指向叶子节点）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%88%E7%B4%A2%E5%BC%95%E6%8C%87%E5%90%91%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%89"><span class="toc-number">1.4.3.</span> <span class="toc-text">第三层（索引指向第二层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E5%B1%82%EF%BC%88%E7%B4%A2%E5%BC%95%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%89"><span class="toc-number">1.4.4.</span> <span class="toc-text">第四层（索引指向第三层）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%85%B3%E9%94%AE%E8%8A%82%E7%82%B9%E6%95%B0%E6%8D%AE%E9%87%8F%E4%B8%B4%E7%95%8C%E7%82%B9"><span class="toc-number">1.5.</span> <span class="toc-text">5. 关键节点数据量临界点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%A0%91%E8%BE%BE%E5%88%B0-2-%E5%B1%82%EF%BC%88%E7%AC%AC%E4%B8%80%E5%B1%82-%E7%AC%AC%E4%BA%8C%E5%B1%82%EF%BC%89"><span class="toc-number">1.5.1.</span> <span class="toc-text">B+ 树达到 2 层（第一层 + 第二层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%A0%91%E8%BE%BE%E5%88%B0-3-%E5%B1%82%EF%BC%88%E7%AC%AC%E4%B8%80%E5%B1%82-%E7%AC%AC%E4%BA%8C%E5%B1%82-%E7%AC%AC%E4%B8%89%E5%B1%82%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">B+ 树达到 3 层（第一层 + 第二层 + 第三层）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%A0%91%E8%BE%BE%E5%88%B0-4-%E5%B1%82%EF%BC%88%E7%AC%AC%E4%B8%80%E5%B1%82-%E7%AC%AC%E4%BA%8C%E5%B1%82-%E7%AC%AC%E4%B8%89%E5%B1%82-%E7%AC%AC%E5%9B%9B%E5%B1%82%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">B+ 树达到 4 层（第一层 + 第二层 + 第三层 + 第四层）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BB%93%E8%AE%BA%E4%B8%8E%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.6.</span> <span class="toc-text">6. 结论与优化建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">1.7.</span> <span class="toc-text">举个例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.7.1.</span> <span class="toc-text">优化建议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.8.</span> <span class="toc-text">7. 参考资料</span></a></li></ol></li></ol></div></div><footer><nobr>Published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></nobr><wbr><nobr> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknights</a></nobr><wbr><nobr> by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas></body></html>

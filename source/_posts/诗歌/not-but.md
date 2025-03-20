@@ -6,7 +6,6 @@ tags:
   - 诗歌
   - 哲学
   - 思想碎片
-sticky: 1
 comments: true
 toc: true
 donate: true

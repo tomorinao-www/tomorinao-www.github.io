@@ -5,8 +5,6 @@ categories: 文档
 tags:
   - hexo
   - theme
-sticky: 1
-#cover:
 comments: true
 toc: true
 donate: true

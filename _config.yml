@@ -12,7 +12,7 @@ language: en
 timezone: ""
 
 # URL
-url: http://blog.wwnao.xyz
+url: http://tomorinao-www.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:

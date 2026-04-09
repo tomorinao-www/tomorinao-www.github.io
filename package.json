@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate --config  _config.yml,_config.arknights.yml,.nao_config.yml",
+    "build": "hexo generate --config  _config.yml,_config.arknights.yml",
     "clean": "hexo clean",
-    "deploy": "hexo deploy --config  _config.yml,_config.arknights.yml,.nao_config.yml",
+    "deploy": "hexo deploy --config  _config.yml,_config.arknights.yml",
     "server": "hexo server"
   },
   "hexo": {
